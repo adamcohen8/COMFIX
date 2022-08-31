@@ -49,9 +49,38 @@ def dayofyr2mdhms(Yr, Days):
     return [Mon, D, H, M, Sec]
 
 
-def elorb():
+def elorb(R, V):
 
-    return 0
+    Hbar = np.cross(R, V)
+    RdotV = np.dot(R, V)
+
+    if mag(Hbar) > 0.00001: #change to small later
+        Nbar = [-Hbar[1], Hbar[0], 0.0]
+        Ebar = np.subtract((np.cross(V, Hbar)/MU), R/mag(R))
+
+        SME = mag(V)**2 * 0.5 - MU/mag(R)
+        if abs(SME) > 0.00001: #Small
+            A = -MU / (2.0*SME)
+        else:
+            A = "Infinity" #probably need to fix this
+
+        Ecc = mag(Ebar)
+        P = mag(Hbar)**2 / MU
+
+
+        Hk = Hbar[2]/mag(Hbar)
+
+        if abs(abs(Hk) - 1.0) < 0.0:#Zero_IE
+            if abs(Hbar[2])> 0.0:
+                Hk = Hbar[2]/abs(Hbar[2])
+
+        Incl = np.arccos(Hk)
+
+        TypeOrbit = "EI"
+
+
+
+    return [P, A, Ecc, Incl, RAAN, Argp, Nu, M, U, L, CapPi]
 
 
 def finddays(Year, Month, Day, Hr, Min, Sec):
