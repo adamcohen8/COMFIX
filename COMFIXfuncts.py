@@ -5,7 +5,10 @@ import math
 ########################################################
 #Constants
 MU = 398600.5
-
+Deg = 180.0/math.pi
+Rad = math.pi/180.0
+Zero_IE  = 0.015
+Small = 1 * 10 **(-6)
 
 
 ########################################################
@@ -43,7 +46,7 @@ def dayofyr2mdhms(Yr, Days):
     H = int(math.floor(Temp))
     Temp = (Temp - H) * 60.0
     M = int(math.floor(Temp))
-    Sec = (Temp - M) * 60.0;
+    Sec = (Temp - M) * 60.0
 
 
     return [Mon, D, H, M, Sec]
@@ -54,15 +57,15 @@ def elorb(R, V):
     Hbar = np.cross(R, V)
     RdotV = np.dot(R, V)
 
-    if mag(Hbar) > 0.00001: #change to small later
+    if mag(Hbar) > Small:
         Nbar = [-Hbar[1], Hbar[0], 0.0]
         Ebar = np.subtract((np.cross(V, Hbar)/MU), R/mag(R))
 
         SME = mag(V)**2 * 0.5 - MU/mag(R)
-        if abs(SME) > 0.00001: #Small
+        if abs(SME) > Small:
             A = -MU / (2.0*SME)
         else:
-            A = "Infinity" #probably need to fix this
+            A = math.inf
 
         Ecc = mag(Ebar)
         P = mag(Hbar)**2 / MU
@@ -70,15 +73,105 @@ def elorb(R, V):
 
         Hk = Hbar[2]/mag(Hbar)
 
-        if abs(abs(Hk) - 1.0) < 0.0:#Zero_IE
+        if abs(abs(Hk) - 1.0) < Zero_IE:
             if abs(Hbar[2])> 0.0:
                 Hk = Hbar[2]/abs(Hbar[2])
 
         Incl = np.arccos(Hk)
 
-        TypeOrbit = "EI"
+        TypeOrbit = ["E", "I"]
+        if Incl < Zero_IE*Rad or abs(math.pi - Incl) < Zero_IE*Rad:
+            TypeOrbit[1] = 'E'
+        if Ecc < Zero_IE:
+            TypeOrbit[0] = "C"
+        "".join(TypeOrbit)
+
+        RAAN = float("NaN")
+        Argp = float("NaN")
+        Nu = float("NaN")
+        U = float("NaN")
+        CapPi = float("NaN")
+        L = float("NaN")
+        M = float("NaN")
 
 
+
+        if TypeOrbit == "EI":
+            RAAN = vecangle(Nbar, [1,0,0])
+            if not math.isinf(RAAN) and Nbar[1] < 0.0:
+                RAAN = 2*math.pi - RAAN
+
+            Argp = vecangle(Nbar, Ebar)
+            if not math.isinf(Argp) and Ebar[2] < 0.0:
+                Argp = 2*math.pi - Argp
+
+            Nu = vecangle(Ebar, R)
+            if not math.isinf(Nu) and np.dot(R,V) < 0.0:
+                Nu = 2*math.pi - Nu
+
+        if TypeOrbit == "EE":
+            Nu = vecangle(Ebar, R)
+            if not math.isinf(Nu) and np.dot(R, V) < 0.0:
+                Nu = 2 * math.pi - Nu
+
+            CapPi = vecangle(Ebar, [1, 0, 0])
+            if not math.isinf(CapPi) and Ebar[1] < 0.0:
+                U = 2*math.pi - U
+
+        if TypeOrbit == "CI":
+            RAAN = vecangle(Nbar, [1,0,0])
+            if not math.isinf(RAAN) and Nbar[1] < 0.0:
+                RAAN = 2*math.pi - RAAN
+
+            U = vecangle(Nbar, R)
+            if not math.isinf(U) and R[2] < 0.0:
+                U = 2*math.pi - U
+
+        if TypeOrbit == "CE":
+            L = vecangle(R, [1,0,0])
+            if not math.isinf(L) and R[2] < 0.0:
+                L = 2*math.pi - L
+
+        if TypeOrbit != "EI" or TypeOrbit != "EE" or TypeOrbit != "CE" or TypeOrbit != "CI":
+            print("Orbit Type Error in ElOrb")
+
+
+        if Ecc-1.0 > Zero_IE:
+            F = np.acosh((Ecc + np.cos(Nu))/(1.0+Ecc*np.cos(Nu)))
+            M = Ecc*np.sinh(F)-F
+            if Nu > math.pi:
+                M = -M
+        else:
+            if abs(Ecc-1.0) < Zero_IE:
+                D = math.sqrt(P) * np.tan(Nu*0.5)
+                M = (3.0*P*D + D*D*D)/6.0
+                if Nu > math.pi:
+                    M = -M
+                else:
+                    if Ecc > Zero_IE:
+                        Temp = 1.0 + Ecc*np.cos(Nu)
+                        if abs(Temp) < Small:
+                            M = 0.0
+                        else:
+                            E = 2 * np.atan(math.sqrt((1-Ecc)/(1+Ecc))*np.tan(Nu/2))
+                            M = E - Ecc * np.sin(E)
+                    else:
+                        if Incl < Zero_IE*Rad or abs(Incl - math.pi) < Zero_IE*Rad:
+                            M = L
+                        else:
+                            M = U
+    else:
+        P = float("NaN")
+        A = float("NaN")
+        Ecc = float("NaN")
+        Incl = float("NaN")
+        RAAN = float("NaN")
+        Argp = float("NaN")
+        Nu = float("NaN")
+        M = float("NaN")
+        U = float("NaN")
+        L = float("NaN")
+        CapPi = float("NaN")
 
     return [P, A, Ecc, Incl, RAAN, Argp, Nu, M, U, L, CapPi]
 
@@ -157,7 +250,7 @@ def vecangle(A, B):
         temp = np.dot(A,B)/mag(A)/mag(B)
         if abs(temp) > 1.0:
             temp = temp/abs(temp)
-        Theta = np.arccos(temp)
+        Theta = np.acos(temp)
     else:
         Theta = "NaN"
 
