@@ -3,4 +3,4 @@ import math
 import COMFIXfuncts as CF
 
 
-print(CF.gstlst("22220194510.00", -68.50 ))
+print(CF.vecangle([1,0,0],[0,1,0]))

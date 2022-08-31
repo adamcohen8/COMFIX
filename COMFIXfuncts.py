@@ -1,6 +1,13 @@
 #Functions for COMFIX
-import numpy
+import numpy as np
 import math
+
+########################################################
+#Constants
+MU = 398600.5
+
+
+
 ########################################################
 #Given Functions
 def axisrot():
@@ -8,9 +15,11 @@ def axisrot():
     return 0
 
 
-def cuberoot():
+def cuberoot(Xval):
 
-    return 0
+    Temp = Xval ** (1/3)
+
+    return Temp
 
 
 def dayofyr2mdhms():
@@ -53,9 +62,11 @@ def julianday():
     return 0
 
 
-def mag():
+def mag(vec):
 
-    return 0
+    magnitude = (vec[0]**2 + vec[1]**2 + vec[2]**2)**(1/2)
+
+    return magnitude
 
 
 def revcheck(x, modby):
@@ -73,9 +84,19 @@ def sun():
     return 0
 
 
-def vecangle():
+def vecangle(A, B):
 
-    return 0
+    tolerance = 0.000001
+
+    if mag(A) * mag(B) >= tolerance:
+        temp = np.dot(A,B)/mag(A)/mag(B)
+        if abs(temp) > 1.0:
+            temp = temp/abs(temp)
+        Theta = np.arccos(temp)
+    else:
+        Theta = "NaN"
+
+    return Theta
 
 
 #####################################################################
