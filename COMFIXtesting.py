@@ -3,4 +3,4 @@ import math
 import COMFIXfuncts as CF
 
 
-print(CF.revcheck(500, 360))
+print(CF.gstlst("22220194510.00", -68.50 ))
