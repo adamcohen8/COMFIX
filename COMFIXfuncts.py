@@ -7,8 +7,8 @@ import math
 MU = 398600.5
 Deg = 180.0/math.pi
 Rad = math.pi/180.0
-Zero_IE  = 0.015
-Small = 1 * 10 **(-6)
+Zero_IE = 0.015
+Small = 1 * 10**(-6)
 
 
 ########################################################
@@ -205,9 +205,18 @@ def get_tle():
     return 0
 
 
-def gstim0():
+def gstim0(Yr):
 
-    return 0
+    JD = 367.0 * Yr - int(math.floor(7.0 * (Yr) *0.25)) + 30 + 1721014.5
+    Tu = (int(math.floor(JD)) + 0.5 - 2451545.0) / 36525.0
+    GST0 = 1.753368559 + 628.3319705 * Tu + 6.770708127**(-6) * Tu * Tu
+
+    GST0 = revcheck(GST0, 2*math.pi)
+    if GST0 < 0.0:
+        GST0 = GST0 + 2*math.pi
+
+
+    return GST0
 
 
 def invjulianday():
