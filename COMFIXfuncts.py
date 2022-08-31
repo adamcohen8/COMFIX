@@ -22,9 +22,31 @@ def cuberoot(Xval):
     return Temp
 
 
-def dayofyr2mdhms():
+def dayofyr2mdhms(Yr, Days):
 
-    return 0
+    DayOfYr = int(math.floor(Days))
+
+    LMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    if (Yr-1900) % 4 == 0:
+        LMonth[1] = 29
+
+    i = 0
+    IntTemp = 0
+
+    while DayOfYr > IntTemp + LMonth[i] and i<11:
+        IntTemp = IntTemp + LMonth[i]
+        i = i + 1
+
+    Mon = i + 1
+    D = DayOfYr - IntTemp
+    Temp = (Days - DayOfYr) * 24.0
+    H = int(math.floor(Temp))
+    Temp = (Temp - H) * 60.0
+    M = int(math.floor(Temp))
+    Sec = (Temp - M) * 60.0;
+
+
+    return [Mon, D, H, M, Sec]
 
 
 def elorb():
