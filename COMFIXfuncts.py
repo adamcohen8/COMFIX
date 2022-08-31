@@ -13,9 +13,16 @@ Small = 1 * 10**(-6)
 
 ########################################################
 #Given Functions
-def axisrot():
+def axisrot(A, axis, alpha):
 
-    return 0
+    B = np.array[0,0,0]
+
+    if axis == 1:
+        B[0] = A[0]
+        B[1] = A[1] * np.cos(alpha) + A[2] * np.sin(alpha)
+        B[2] = -A[1] *np.sin(alpha) + A[2] * np.cos(alpha)
+
+    return B
 
 
 def cuberoot(Xval):
@@ -272,9 +279,43 @@ def revcheck(x, modby):
     return y
 
 
-def sun():
+def Sun(JD):
 
-    return 0
+    N = JD - 2451545.0
+
+    MeanLong = 280.461 + 0.9856474 * N
+    MeanLong = revcheck(MeanLong, 360.0)
+
+    MeanAnomaly = 357.528 + 0.9856003 * N
+    MeanAnomaly = revcheck(MeanAnomaly * Rad, 2*math.pi)
+    if MeanAnomaly < 0.0:
+        MeanAnomaly = 2*math.pi + MeanAnomaly
+
+    EclpLong = MeanLong + 1.915*np.sin(MeanAnomaly) +0.02*np.sin(2.0*MeanAnomaly)
+    Obliquity = 23.439 - 0.0000004 * N
+
+    MeanLong = MeanLong * Rad
+    if MeanLong < 0.0:
+        MeanLong = 2*math.pi +MeanLong
+
+    EclpLong = EclpLong * Rad
+    Obliquity = Obliquity * Rad
+
+    RtAsc = np.arctan(np.cos(Obliquity)*np.tan(EclpLong))
+
+    if EclpLong < 0:
+        EclpLong = EclpLong + 2*math.pi
+
+    if abs(EclpLong-RtAsc) > 0.5*math.pi:
+        RtAsc = RtAsc + 0.5*math.pi* round((EclpLong-RtAsc)/(0.5*math.pi))
+
+    Decl = np.arcsin(np.sin(Obliquity)*np.sin(EclpLong))
+
+    RSun4 = 1.00014 -0.01671*np.cos(MeanAnomaly) - 0.00014*np.cos(2.0*MeanAnomaly)
+
+    RSun = np.array([RSun4*np.cos(EclpLong), RSun4*np.cos(Obliquity)*np.sin(EclpLong), RSun4*np.sin(Obliquity)*np.cos(EclpLong)])
+
+    return [RSun, RtAsc, Decl]
 
 
 def vecangle(A, B):
