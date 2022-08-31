@@ -17,7 +17,7 @@ def axisrot():
 
 def cuberoot(Xval):
 
-    Temp = Xval ** (1/3)
+    Temp = Xval/abs(Xval) * abs(Xval) ** (1/3)
 
     return Temp
 
@@ -54,9 +54,23 @@ def elorb():
     return 0
 
 
-def finddays():
+def finddays(Year, Month, Day, Hr, Min, Sec):
 
-    return 0
+    LMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    if (Year - 1900) % 4 == 0:
+        LMonth[1] = 29
+
+    i = 1
+    DDays = 0.0
+
+    while i < Month and i < 12:
+        DDays = DDays + LMonth[i-1]
+        i = i + 1
+
+    DDays = DDays + (Day - 1) + (Hr / 24.0) + (Min / 1440.0) + (Sec / 86400.0)
+
+
+    return DDays
 
 
 def fprintvec():
