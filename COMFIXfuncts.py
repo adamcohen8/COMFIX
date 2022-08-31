@@ -224,9 +224,16 @@ def invjulianday():
     return 0
 
 
-def julianday():
+def julianday(Yr, Mon, D, H, M, S):
 
-    return 0
+    TERM1 = 367.0 * Yr
+    TERM2 = int(math.floor((7.0 * (Yr + int(math.floor((Mon + 9.0) / 12.0)))) * 0.25))
+    TERM3 = int(math.floor(275.0 * Mon / 9.0))
+    UT = ((S / 60.0 + M) / 60.0 + H) / 24.0
+
+    JD = (TERM1 - TERM2 + TERM3) + D + UT + 1721013.5
+
+    return JD
 
 
 def mag(vec):

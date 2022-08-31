@@ -6,4 +6,6 @@ import COMFIXfuncts as CF
 # V = np.array([-0.6950, 5.2500, -1.6500])
 # print(CF.elorb(R,V))
 
-print(CF.gstim0(2022)*180/math.pi)
+#print(CF.gstim0(2022)*180/math.pi)
+
+print(CF.julianday(2022,8,31,13,25,30))
