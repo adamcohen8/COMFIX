@@ -219,9 +219,28 @@ def gstim0(Yr):
     return GST0
 
 
-def invjulianday():
+def invjulianday(JD):
 
-    return 0
+    Temp = JD - 2415019.5
+    Tu = Temp / 365.25
+    Yr = 1900 + int(math.floor(Tu))
+    LeapYrs = int(math.floor((Yr - 1900 - 1) * 0.25))
+    Days = Temp - ((Yr - 1900) * 365.0 + LeapYrs)
+
+    if Days < 1.0:
+        Yr = Yr - 1
+        LeapYrs = int(math.floor((Yr - 1900 - 1) * 0.25))
+        Days = Temp - ((Yr - 1900) * 365.0 + LeapYrs)
+
+    x = dayofyr2mdhms(Yr, Days)
+
+    Mon = x[0]
+    D = x[1]
+    H = x[2]
+    M = x[3]
+    S = x[4]
+
+    return [Yr, Mon, D, H, M, S]
 
 
 def julianday(Yr, Mon, D, H, M, S):
