@@ -9,7 +9,8 @@ Deg = 180.0/math.pi
 Rad = math.pi/180.0
 Zero_IE = 0.015
 Small = 1 * 10**(-6)
-
+Ae = 6378.137
+Ee = 0.0818191908426
 
 ########################################################
 #Given Functions
@@ -374,9 +375,6 @@ def gstlst(jd, sitlon):
 
 
 def site(sitlat, sitalt, lst):
-
-    Ae = 6000
-    Ee = 0.01
 
     x = abs((Ae / (math.sqrt(1-(Ee**2)*np.sin(sitlat))))+sitalt)*np.cos(sitlat)
     z = abs((Ae*(1-Ee**2))/(math.sqrt(1-(Ee**2)*(math.sin(sitlat)**2)))+sitalt)*np.sin(sitlat)
