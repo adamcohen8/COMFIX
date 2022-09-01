@@ -373,12 +373,24 @@ def gstlst(jd, sitlon):
     return [gst, lst]
 
 
-def site(sitlat, sitlon, lst):
+def site(sitlat, sitalt, lst):
 
-    return 0
+    Ae = 6000
+    Ee = 0.01
+
+    x = abs((Ae / (math.sqrt(1-(Ee**2)*np.sin(sitlat))))+sitalt)*np.cos(sitlat)
+    z = abs((Ae*(1-Ee**2))/(math.sqrt(1-(Ee**2)*(math.sin(sitlat)**2)))+sitalt)*np.sin(sitlat)
+
+    R_site = np.array([x*np.cos(lst), x*np.sin(lst), z])
+
+    return R_site
 
 
 def SEZ2IJK(vec_sez):
+
+
+
+
 
     return 0
 
