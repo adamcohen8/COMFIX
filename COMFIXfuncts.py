@@ -384,13 +384,15 @@ def site(sitlat, sitalt, lst):
     return R_site
 
 
-def SEZ2IJK(vec_sez):
+def SEZ2IJK(vec_sez, sitlat, LST):
 
+    vec_ijk = np.array([0.0,0.0,0.0])
 
+    Colat = 0.5*math.pi - sitlat
 
+    vec_ijk = axisrot(axisrot(vec_sez, 2, -Colat),3,-LST)
 
-
-    return 0
+    return vec_ijk
 
 
 def OBS2RANGERANGERATE(rho, az, el, drho, daz, Del):
