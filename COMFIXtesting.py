@@ -11,4 +11,6 @@ import COMFIXfuncts as CF
 # print(CF.julianday(2022,8,31,13,53,30))
 # print(CF.invjulianday(2459823.0788194444))
 
-print(CF.Sun(2459823.0788194444))
+#print(CF.Sun(2459823.0788194444))
+
+print(CF.axisrot(CF.axisrot(np.array([-1636.4022,562.2001,1227.4091]),2,-0.214675498),3,-3.2302623391))

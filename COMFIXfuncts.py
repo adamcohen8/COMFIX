@@ -15,12 +15,23 @@ Small = 1 * 10**(-6)
 #Given Functions
 def axisrot(A, axis, alpha):
 
-    B = np.array[0,0,0]
+    B = np.array([0,0,0])
 
     if axis == 1:
         B[0] = A[0]
         B[1] = A[1] * np.cos(alpha) + A[2] * np.sin(alpha)
         B[2] = -A[1] *np.sin(alpha) + A[2] * np.cos(alpha)
+
+    if axis == 2:
+        B[0] = A[0] * np.cos(alpha) - A[2] * np.sin(alpha)
+        B[1] = A[1]
+        B[2] = A[0] * np.sin(alpha) + A[2] * np.cos(alpha)
+
+    if axis == 3:
+        B[0] = A[0] * np.cos(alpha) + A[1] * np.sin(alpha)
+        B[1] = -A[0] * np.sin(alpha) + A[1] * np.cos(alpha)
+        B[2] = A[2]
+
 
     return B
 
