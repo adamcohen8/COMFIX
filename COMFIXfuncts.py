@@ -398,9 +398,18 @@ def SEZ2IJK(vec_sez, sitlat, LST):
 
 def OBS2RANGERANGERATE(rho, az, el, drho, daz, Del):
 
+    rho_sez = np.array([0.0,0.0,0.0])
+    drho_sez = np.array([0.0, 0.0, 0.0])
 
+    rho_sez[0] = -rho*np.cos(az)*np.cos(el)
+    rho_sez[1] = rho*np.sin(az)*np.cos(el)
+    rho_sez[2] = rho*np.sin(el)
 
-    return 0
+    drho_sez[0] = -drho*np.cos(az)*np.cos(el) + rho*daz*np.sin(az)*np.cos(el) + rho*Del*np.cos(az)*np.sin(el)
+    drho_sez[1] = drho*np.sin(az)*np.cos(el) + rho*daz*np.cos(az)*np.cos(el) - rho*Del*np.sin(az)*np.sin(el)
+    drho_sez[2] = drho*np.sin(el) + rho*Del*np.cos(el)
+
+    return [rho_sez, drho_sez]
 
 
 def ijktorv(rho_ijk, drho_ijk, R_site):
