@@ -11,6 +11,7 @@ Zero_IE = 0.015
 Small = 1 * 10**(-6)
 Ae = 6378.137
 Ee = 0.0818191908426
+w = np.array([0, 0, 0.00007292115])
 
 ########################################################
 #Given Functions
@@ -397,11 +398,26 @@ def SEZ2IJK(vec_sez, sitlat, LST):
 
 def OBS2RANGERANGERATE(rho, az, el, drho, daz, Del):
 
+
+
     return 0
 
 
 def ijktorv(rho_ijk, drho_ijk, R_site):
 
-    return 0
+    R = np.array([0.0, 0.0, 0.0])
+    V = np.array([0.0, 0.0, 0.0])
+
+    R[0] = R_site[0] + rho_ijk[0]
+    R[1] = R_site[1] + rho_ijk[1]
+    R[2] = R_site[2] + rho_ijk[2]
+
+    b = np.cross(w, R)
+
+    V[0] = drho_ijk[0] + b[0]
+    V[1] = drho_ijk[1] + b[1]
+    V[2] = drho_ijk[2] + b[2]
+
+    return [R, V]
 
 
