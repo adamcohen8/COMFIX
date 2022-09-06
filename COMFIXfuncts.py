@@ -72,7 +72,7 @@ def dayofyr2mdhms(Yr, Days):
     return [Mon, D, H, M, Sec]
 
 
-def elorb(R, V):
+def elOrb(R, V):
 
     Hbar = np.cross(R, V)
     RdotV = np.dot(R, V)
