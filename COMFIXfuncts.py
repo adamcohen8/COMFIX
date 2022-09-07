@@ -118,7 +118,7 @@ def elOrb(R, V):
 
         if TypeOrbit == "EI":
             RAAN = vecangle(Nbar, [1,0,0])
-            if not math.isinf(RAAN) and Nbar[1] < 0.0:
+            if (not math.isinf(RAAN)) and Nbar[1] < 0.0:
                 RAAN = 2*math.pi - RAAN
 
             Argp = vecangle(Nbar, Ebar)

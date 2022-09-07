@@ -18,9 +18,16 @@ sitlat = 0
 sitalt = 0
 
 
-x = True
+#Open input file
+file_in = open("comfix.dat", 'r')
+contents = file_in.read()
+lines = contents.split('\n')
+#Open output file
+file_out = open("Comfix.out", 'w')
 
-while x:
+#Change this to when end of file is reached
+
+for line in lines:
 
     #Get next set of Observation Data Here
 
