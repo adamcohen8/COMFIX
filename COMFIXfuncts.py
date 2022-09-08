@@ -408,8 +408,8 @@ def gstlst(jd, sitlon):
 
     theta_g = theta_g0 + 1.002737791737697*360*D
 
-    gst = revcheck(theta_g, 360)
-    gst = gst * math.pi /180
+    gst = revcheck(theta_g, 360.0)
+    gst = gst * math.pi /180.0
     lst = gst + sitlon
 
     return [gst, lst]
