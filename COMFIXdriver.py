@@ -5,19 +5,6 @@ import COMFIXfuncts as CF
 import math
 
 
-#Place Holders
-# rho = 0
-# az = 0
-# el = 0
-# drho = 0
-# daz = 0
-# Del = 0
-# jd = 0
-# sitlon = 0
-# sitlat = 0
-# sitalt = 0
-
-
 #Open input file
 file_in = open("comfix.in", 'r')
 contents = file_in.read()
@@ -43,6 +30,8 @@ for line in lines:
     drho = float(obsData[8])
     daz = float(obsData[9])
     Del = float(obsData[10])
+
+
 
     #Convert to working units
     az = az * math.pi / 180.0
@@ -109,7 +98,7 @@ for line in lines:
 
     print(a,e, Incl, Raan, Argp, Nu)
 
-    CF.writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez,rho_ijk, drho_sez, drho_ijk, jd, satID, Yr, UT, GST, LST, R, V, Rsite)
+    CF.writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez,rho_ijk, drho_sez, drho_ijk, jd, satID, GST, LST, R, V, Rsite)
 
     # file_out.write(f"*********************Comfix  Satellite: {satID}*******************\n")
     # file_out.write("---------------------------------------------------------------\n")

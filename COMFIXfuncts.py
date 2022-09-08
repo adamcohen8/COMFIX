@@ -223,6 +223,7 @@ def elOrb(R, V):
 
     return [A, Ecc, Incl, RAAN, Argp, Nu]
 
+
 def scalarMultiply(scalar, vector):
 
     newvec = np.array([0.0,0.0,0.0])
@@ -231,6 +232,7 @@ def scalarMultiply(scalar, vector):
     newvec[2] = scalar*vector[2]
 
     return newvec
+
 
 def finddays(Year, Month, Day, Hr, Min, Sec):
 
@@ -277,7 +279,7 @@ def gstim0(Yr):
 
 def invjulianday(JD):
 
-    Temp = JD - 2415019.5
+    Temp = float(JD) - 2415019.5
     Tu = Temp / 365.25
     Yr = 1900 + int(math.floor(Tu))
     LeapYrs = int(math.floor((Yr - 1900 - 1) * 0.25))
@@ -304,9 +306,9 @@ def julianday(Yr, Mon, D, H, M, S):
     TERM1 = 367.0 * Yr
     TERM2 = int(math.floor((7.0 * (Yr + int(math.floor((Mon + 9.0) / 12.0)))) * 0.25))
     TERM3 = int(math.floor(275.0 * Mon / 9.0))
-    UT = ((S / 60.0 + M) / 60.0 + H) / 24.0
+    UT = ((float(S) / 60.0 + float(M)) / 60.0 + float(H)) / 24.0
 
-    JD = (TERM1 - TERM2 + TERM3) + D + UT + 1721013.5
+    JD = (float(TERM1) - float(TERM2) + float(TERM3)) + float(D) + float(UT) + 1721013.5
 
     return JD
 
@@ -381,44 +383,55 @@ def vecangle(A, B):
 
     return Theta
 
-def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez, rho_ijk, drho_sez, drho_ijk, jd, satID, Yr, UT, GST, LST, R, V, Rsite):
+def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez, rho_ijk, drho_sez, drho_ijk, jd, satID, GST, LST, R, V, Rsite):
+
+    day = jd[2] + jd[3] + jd[4]
+    day = int(day)
+
+    UT = jd[5] + jd[6]+ ':' + jd[7] + jd[8] + ':' + jd[9] + jd[10] + jd[11] + jd[12] + jd[13]
+
+    Yr = 2000 + int(jd[0] + jd[1])
+
+    temp = dayofyr2mdhms(Yr, day)
+
+    Mon = temp[0]
+    D = temp[1]
+    Hr = temp[2]
+    M = temp[3]
+    S = temp[4]
+
+    JD = julianday(Yr, Mon, D, Hr, M, S)
+
+
+
+
     file_out.write(f"*********************Comfix  Satellite: {satID}*******************\n")
     file_out.write("---------------------------------------------------------------\n")
     file_out.write("             ####     Input Data      ####\n\n")
     file_out.write("   LAT      LON     ALT      YEAR     DAY          UT     \n")
     file_out.write("  (deg)    (deg)    (m)              Number   (hr:min:sec)\n")
-    file_out.write(
-        f"  {format(sitlat * 180 / math.pi, '.2f')}   {format(sitlon * 180 / math.pi, '.2f')}   {format(sitalt * 1000, '.2f')}     {2022}    {220}       {'19:45:10.00'}\n\n")
+    file_out.write(f"  {format(sitlat * 180 / math.pi, '.2f')}   {format(sitlon * 180 / math.pi, '.2f')}   {format(sitalt * 1000, '.2f')}     {2022}    {day}       {UT}\n\n")
     file_out.write("   RHO         DRHO        EL           DEL         AZ          DAZ  \n")
     file_out.write("   (km)       (km/s)     (deg)        (deg/s)     (deg)       (deg/s) \n")
-    file_out.write(
-        f"   {round(rho, 4)}    {round(drho, 5)}    {round((el * 180 / math.pi), 5)}     {round((Del * 180 / math.pi), 5)}    {round((az * 180 / math.pi), 5)}    {round((daz * 180 / math.pi), 5)}\n")
+    file_out.write(f"   {round(rho, 4)}    {round(drho, 5)}    {round((el * 180 / math.pi), 5)}     {round((Del * 180 / math.pi), 5)}    {round((az * 180 / math.pi), 5)}    {round((daz * 180 / math.pi), 5)}\n")
     file_out.write("------------------------------------------------------------\n")
     file_out.write("             ####     Working Data    ####\n\n")
     file_out.write("     LAT        LON         ALT         Julian Date\n")
     file_out.write("    (rad)      (rad)       (km)           (days)    \n")
-    file_out.write(f"   {format(sitlat, '.4f')}     {format(sitlat, '.4f')}      {format(sitalt, '.4f')}      {jd}\n\n")
+    file_out.write(f"   {format(sitlat, '.4f')}     {format(sitlat, '.4f')}      {format(sitalt, '.4f')}      {JD}\n\n")
     file_out.write("   RHO         DRHO        EL           DEL         AZ          DAZ  \n")
     file_out.write("   (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) \n")
-    file_out.write(
-        f"{format(rho, '.4f')}    {format(drho, '.5f')}   {format(el, '.5f')}       {format(Del, '.5f')}     {format(az, '.5f')}    {format(daz, '.5f')}\n\n")
+    file_out.write(f"{format(rho, '.4f')}    {format(drho, '.5f')}   {format(el, '.5f')}       {format(Del, '.5f')}     {format(az, '.5f')}    {format(daz, '.5f')}\n\n")
     file_out.write(f"GST  =           {round(GST, 10)} rad     &        {round(GST * 180 / math.pi, 10)} degs\n")
     file_out.write(f"GST  =           {round(LST, 10)} rad     &        {round(LST * 180 / math.pi, 10)} degs\n\n")
     file_out.write("             ####       Vectors        ####\n\n")
-    file_out.write(
-        f"Rho_sez  =   {format(rho_sez[0], '5.4f')} S    {format(rho_sez[1], '5.4f')} E   {format(rho_sez[2], '5.4f')} Z Mag =   {format(mag(rho_sez), '5.4f')} km \n")
-    file_out.write(
-        f"Drho_sez =   {format(drho_sez[0], '5.4f')} S     {format(drho_sez[1], '5.4f')} E      {format(drho_sez[2], '5.4f')} Z Mag =     {format(mag(drho_sez), '5.4f')} km/s \n")
-    file_out.write(
-        f"R_site   =   {format(Rsite[0], '5.4f')} I   {format(Rsite[1], '5.4f')} J   {format(Rsite[2], '5.4f')} K Mag =   {format(mag(Rsite), '5.4f')} km \n")
-    file_out.write(
-        f"Rho_ijk  =   {format(rho_ijk[0], '5.4f')} I   {format(rho_ijk[1], '5.4f')} J   {format(rho_ijk[2], '5.4f')} K Mag =   {format(mag(rho_ijk), '5.4f')} km \n")
-    file_out.write(
-        f"Drho_ijk =   {format(drho_ijk[0], '5.4f')} I      {format(drho_ijk[1], '5.4f')} J      {format(drho_ijk[2], '5.4f')} K Mag =     {format(mag(drho_ijk), '5.4f')} km/s \n")
-    file_out.write(
-        f"R_ijk    =   {format(R[0], '5.4f')} I   {format(R[1], '5.4f')} J   {format(R[2], '5.4f')} K Mag =  {format(mag(R), '5.4f')} km \n")
-    file_out.write(
-        f"V_ijk    =   {format(V[0], '5.4f')} I      {format(V[1], '5.4f')} J      {format(V[2], '5.4f')} K Mag =      {format(mag(V), '5.4f')} km/s \n")
+    file_out.write(f"Rho_sez  =   {format(rho_sez[0], '5.4f')} S    {format(rho_sez[1], '5.4f')} E   {format(rho_sez[2], '5.4f')} Z Mag =   {format(mag(rho_sez), '5.4f')} km \n")
+    file_out.write(f"Drho_sez =   {format(drho_sez[0], '5.4f')} S     {format(drho_sez[1], '5.4f')} E      {format(drho_sez[2], '5.4f')} Z Mag =     {format(mag(drho_sez), '5.4f')} km/s \n")
+    file_out.write(f"R_site   =   {format(Rsite[0], '5.4f')} I   {format(Rsite[1], '5.4f')} J   {format(Rsite[2], '5.4f')} K Mag =   {format(mag(Rsite), '5.4f')} km \n")
+    file_out.write(f"Rho_ijk  =   {format(rho_ijk[0], '5.4f')} I   {format(rho_ijk[1], '5.4f')} J   {format(rho_ijk[2], '5.4f')} K Mag =   {format(mag(rho_ijk), '5.4f')} km \n")
+    file_out.write(f"Drho_ijk =   {format(drho_ijk[0], '5.4f')} I      {format(drho_ijk[1], '5.4f')} J      {format(drho_ijk[2], '5.4f')} K Mag =     {format(mag(drho_ijk), '5.4f')} km/s \n")
+    file_out.write(f"R_ijk    =   {format(R[0], '5.4f')} I   {format(R[1], '5.4f')} J   {format(R[2], '5.4f')} K Mag =  {format(mag(R), '5.4f')} km \n")
+    file_out.write(f"V_ijk    =   {format(V[0], '5.4f')} I      {format(V[1], '5.4f')} J      {format(V[2], '5.4f')} K Mag =      {format(mag(V), '5.4f')} km/s \n")
     file_out.write("------------------------------------------------------------------\n\n")
     file_out.write("             ####     Output Data      ####\n\n")
     file_out.write("CLASSIC ORBITAL ELEMENTS: \n\n")
