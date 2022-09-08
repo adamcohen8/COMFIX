@@ -6,36 +6,53 @@ import math
 
 
 #Place Holders
-rho = 0
-az = 0
-el = 0
-drho = 0
-daz = 0
-Del = 0
-jd = 0
-sitlon = 0
-sitlat = 0
-sitalt = 0
+# rho = 0
+# az = 0
+# el = 0
+# drho = 0
+# daz = 0
+# Del = 0
+# jd = 0
+# sitlon = 0
+# sitlat = 0
+# sitalt = 0
 
 
 #Open input file
-file_in = open("comfix.dat", 'r')
+file_in = open("comfix.in", 'r')
 contents = file_in.read()
 lines = contents.split('\n')
+
 #Open output file
 file_out = open("Comfix.out", 'w')
 
 #Change this to when end of file is reached
 
 for line in lines:
-
     #Get next set of Observation Data Here
+    obsData = line.split(' ')
+    #print(obsData)
+    sitlat = float(obsData[0])
+    sitlon = float(obsData[1])
+    sitalt = float(obsData[2])
+    jd = str(obsData[3])
+    satID = obsData[4]
+    rho = float(obsData[5])
+    az = float(obsData[6])
+    el = float(obsData[7])
+    drho = float(obsData[8])
+    daz = float(obsData[9])
+    Del = float(obsData[10])
 
     #Convert to working units
     az = az * math.pi / 180.0
     el = el * math.pi / 180.0
     daz = daz * math.pi / 180.0
     Del = Del * math.pi / 180.0
+    sitalt = sitalt/1000.0
+    sitlat = sitlat * math.pi / 180.0
+    sitlon = sitlon * math.pi / 180.0
+
 
 
     #Find GST and LST
@@ -60,14 +77,15 @@ for line in lines:
     R = RV[0]
     V = RV[1]
 
+    print(R,V)
     #Find COEs
     COEs = CF.elOrb(R, V)
-    a = COEs[1]
-    e = COEs[2]
-    Incl = COEs[3]
-    Raan = COEs[4]
-    Argp = COEs[5]
-    Nu = COEs[6]
+    a = COEs[0]
+    e = COEs[1]
+    Incl = COEs[2]
+    Raan = COEs[3]
+    Argp = COEs[4]
+    Nu = COEs[5]
 
     #Convert to display units
     Incl = Incl * 180 / math.pi
@@ -78,7 +96,7 @@ for line in lines:
 
     #Write values to files
 
-
+    print(a,e, Incl, Raan, Argp, Nu)
 
 
 
