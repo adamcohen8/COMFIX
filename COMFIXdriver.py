@@ -54,23 +54,32 @@ for line in lines:
     sitlon = sitlon * math.pi / 180.0
 
 
-
     #Find GST and LST
     GST_LST = CF.gstlst(jd, sitlon)
     GST = GST_LST[0]
     LST = GST_LST[1]
 
+
+    print(GST, LST)
+
     #Find R site
     Rsite = CF.site(sitlat, sitalt, LST)
+
+    print(Rsite)
+
 
     #Find Rho and Drho in SEZ
     rho_drho = CF.OBS2RANGERANGERATE(rho, az, el, drho, daz, Del)
     rho_sez = rho_drho[0]
     drho_sez = rho_drho[1]
 
+    print(rho_sez, drho_sez)
+
     #Convert Rho and Drho
     rho_ijk = CF.SEZ2IJK(rho_sez, sitlat, LST)
     drho_ijk = CF.SEZ2IJK(drho_sez, sitlat, LST)
+
+    print(rho_ijk, drho_ijk)
 
     #Find R and V
     RV = CF.ijktorv(rho_ijk, drho_ijk, Rsite)

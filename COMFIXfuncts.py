@@ -389,17 +389,20 @@ def gstlst(jd, sitlon):
 
     jd = str(jd)
 
+    # Yr = jd[0] +jd[1]
+    # Yr = int(Yr)
+
     day = jd[2] + jd[3] + jd[4]
-    day = int(day)
+    day = float(day)
 
     hr = jd[5] + jd[6]
-    hr = int(hr)
+    hr = float(hr)
     min = jd[7] + jd[8]
-    min = int(min)
+    min = float(min)
     sec = jd[9] + jd[10] + jd[11] + jd[12] + jd[13]
     sec = float(sec)
 
-    D = day - 1 + (hr/24) + (min/1440) + (sec/86400)
+    D = day - 1.0 + (hr/24.0) + (min/1440.0) + (sec/86400.0)
 
     theta_g0 = 100.63004655
 
