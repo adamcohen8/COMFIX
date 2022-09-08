@@ -381,6 +381,57 @@ def vecangle(A, B):
 
     return Theta
 
+def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez, rho_ijk, drho_sez, drho_ijk, jd, satID, Yr, UT, GST, LST, R, V, Rsite):
+    file_out.write(f"*********************Comfix  Satellite: {satID}*******************\n")
+    file_out.write("---------------------------------------------------------------\n")
+    file_out.write("             ####     Input Data      ####\n\n")
+    file_out.write("   LAT      LON     ALT      YEAR     DAY          UT     \n")
+    file_out.write("  (deg)    (deg)    (m)              Number   (hr:min:sec)\n")
+    file_out.write(
+        f"  {format(sitlat * 180 / math.pi, '.2f')}   {format(sitlon * 180 / math.pi, '.2f')}   {format(sitalt * 1000, '.2f')}     {2022}    {220}       {'19:45:10.00'}\n\n")
+    file_out.write("   RHO         DRHO        EL           DEL         AZ          DAZ  \n")
+    file_out.write("   (km)       (km/s)     (deg)        (deg/s)     (deg)       (deg/s) \n")
+    file_out.write(
+        f"   {round(rho, 4)}    {round(drho, 5)}    {round((el * 180 / math.pi), 5)}     {round((Del * 180 / math.pi), 5)}    {round((az * 180 / math.pi), 5)}    {round((daz * 180 / math.pi), 5)}\n")
+    file_out.write("------------------------------------------------------------\n")
+    file_out.write("             ####     Working Data    ####\n\n")
+    file_out.write("     LAT        LON         ALT         Julian Date\n")
+    file_out.write("    (rad)      (rad)       (km)           (days)    \n")
+    file_out.write(f"   {format(sitlat, '.4f')}     {format(sitlat, '.4f')}      {format(sitalt, '.4f')}      {jd}\n\n")
+    file_out.write("   RHO         DRHO        EL           DEL         AZ          DAZ  \n")
+    file_out.write("   (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) \n")
+    file_out.write(
+        f"{format(rho, '.4f')}    {format(drho, '.5f')}   {format(el, '.5f')}       {format(Del, '.5f')}     {format(az, '.5f')}    {format(daz, '.5f')}\n\n")
+    file_out.write(f"GST  =           {round(GST, 10)} rad     &        {round(GST * 180 / math.pi, 10)} degs\n")
+    file_out.write(f"GST  =           {round(LST, 10)} rad     &        {round(LST * 180 / math.pi, 10)} degs\n\n")
+    file_out.write("             ####       Vectors        ####\n\n")
+    file_out.write(
+        f"Rho_sez  =   {format(rho_sez[0], '5.4f')} S    {format(rho_sez[1], '5.4f')} E   {format(rho_sez[2], '5.4f')} Z Mag =   {format(mag(rho_sez), '5.4f')} km \n")
+    file_out.write(
+        f"Drho_sez =   {format(drho_sez[0], '5.4f')} S     {format(drho_sez[1], '5.4f')} E      {format(drho_sez[2], '5.4f')} Z Mag =     {format(mag(drho_sez), '5.4f')} km/s \n")
+    file_out.write(
+        f"R_site   =   {format(Rsite[0], '5.4f')} I   {format(Rsite[1], '5.4f')} J   {format(Rsite[2], '5.4f')} K Mag =   {format(mag(Rsite), '5.4f')} km \n")
+    file_out.write(
+        f"Rho_ijk  =   {format(rho_ijk[0], '5.4f')} I   {format(rho_ijk[1], '5.4f')} J   {format(rho_ijk[2], '5.4f')} K Mag =   {format(mag(rho_ijk), '5.4f')} km \n")
+    file_out.write(
+        f"Drho_ijk =   {format(drho_ijk[0], '5.4f')} I      {format(drho_ijk[1], '5.4f')} J      {format(drho_ijk[2], '5.4f')} K Mag =     {format(mag(drho_ijk), '5.4f')} km/s \n")
+    file_out.write(
+        f"R_ijk    =   {format(R[0], '5.4f')} I   {format(R[1], '5.4f')} J   {format(R[2], '5.4f')} K Mag =  {format(mag(R), '5.4f')} km \n")
+    file_out.write(
+        f"V_ijk    =   {format(V[0], '5.4f')} I      {format(V[1], '5.4f')} J      {format(V[2], '5.4f')} K Mag =      {format(mag(V), '5.4f')} km/s \n")
+    file_out.write("------------------------------------------------------------------\n\n")
+    file_out.write("             ####     Output Data      ####\n\n")
+    file_out.write("CLASSIC ORBITAL ELEMENTS: \n\n")
+    file_out.write(f"Semimajor Axis                     (km) =     {format(a, '.4f')}\n")
+    file_out.write(f"Eccentricity                            =         {format(e, '.4f')}\n")
+    file_out.write(f"Inclination                       (deg) =        {format(Incl, '.4f')}\n")
+    file_out.write(f"Right Ascension of Ascending Node (deg) =       {format(Raan, '.4f')}\n")
+    file_out.write(f"Argument of Perigee               (deg) =        {format(Argp, '.4f')}\n")
+    file_out.write(f"True Anomaly                      (deg) =        {format(Nu, '.4f')}\n\n\n")
+
+
+    return 0
+
 
 #####################################################################
 #My Functions
