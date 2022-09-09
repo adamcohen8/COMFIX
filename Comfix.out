@@ -14,23 +14,23 @@
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459800.323032
+   1.3561     -1.1956      0.0490      2459800.323032
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
 2121.4180    -3.32040   0.61699       0.00355     0.33092    -0.00134
 
-GST  =           4.4258128757 rad     &        253.5803986936 degs
-GST  =           3.2302623381 rad     &        185.0803986936 degs
+GST  =           4.4258128757 rad     &        253.5803986947 degs
+LST  =           3.2302623381 rad     &        185.0803986947 degs
 
              ####       Vectors        ####
 
 Rho_sez  =   -1636.4022 S    562.2001 E   1227.4091 Z Mag =   2121.4180 km 
 Drho_sez =   5.9367 S     -4.4833 E      4.2295 Z Mag =     8.5577 km/s 
-R_site   =   -1357.8574 I   -120.7173 J   6209.9350 K Mag =   6357.8017 km 
+R_site   =   -1357.7548 I   -120.7082 J   6209.9350 K Mag =   6357.7796 km 
 Rho_ijk  =   1381.8950 I   -441.5631 J   1547.8381 K Mag =   2121.4180 km 
 Drho_ijk =   -7.0721 I      3.8723 J      2.8678 K Mag =     8.5577 km/s 
-R_ijk    =   24.0376 I   -562.2804 J   7757.7731 K Mag =  7778.1605 km 
+R_ijk    =   24.1401 I   -562.2713 J   7757.7731 K Mag =  7778.1601 km 
 V_ijk    =   -7.0311 I      3.8740 J      2.8678 K Mag =      8.5246 km/s 
 ------------------------------------------------------------------
 
@@ -38,12 +38,12 @@ V_ijk    =   -7.0311 I      3.8740 J      2.8678 K Mag =      8.5246 km/s
 
 CLASSIC ORBITAL ELEMENTS: 
 
-Semimajor Axis                     (km) =     13365.3831
+Semimajor Axis                     (km) =     13365.4112
 Eccentricity                            =         0.4991
-Inclination                       (deg) =        93.4992
-Right Ascension of Ascending Node (deg) =       329.8943
-Argument of Perigee               (deg) =        33.3368
-True Anomaly                      (deg) =        54.4319
+Inclination                       (deg) =        93.4987
+Right Ascension of Ascending Node (deg) =       329.8944
+Argument of Perigee               (deg) =        33.3380
+True Anomaly                      (deg) =        54.4301
 
 
 *********************Comfix  Satellite: 1002*******************
@@ -62,36 +62,36 @@ True Anomaly                      (deg) =        54.4319
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459800.323148
+   1.3561     -1.1956      0.0490      2459800.323148
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
 2089.4420    -3.06980   0.65294       0.00363     0.31699    -0.00146
 
-GST  =           4.4265420872 rad     &        253.622179435 degs
-GST  =           3.2309915496 rad     &        185.122179435 degs
+GST  =           4.4265420872 rad     &        253.622179436 degs
+LST  =           3.2309915496 rad     &        185.122179436 degs
 
              ####       Vectors        ####
 
 Rho_sez  =   -1576.9613 S    517.3259 E   1269.3837 Z Mag =   2089.4420 km 
 Drho_sez =   5.9435 S     -4.4980 E      4.1638 Z Mag =     8.5378 km/s 
-R_site   =   -1357.7690 I   -121.7075 J   6209.9350 K Mag =   6357.8017 km 
+R_site   =   -1357.6664 I   -121.6983 J   6209.9350 K Mag =   6357.7796 km 
 Rho_ijk  =   1311.4595 I   -401.8437 J   1576.1864 K Mag =   2089.4420 km 
 Drho_ijk =   -7.0689 I      3.8824 J      2.8021 K Mag =     8.5378 km/s 
-R_ijk    =   -46.3095 I   -523.5512 J   7786.1214 K Mag =  7803.8411 km 
-V_ijk    =   -7.0308 I      3.8790 J      2.8021 K Mag =      8.5047 km/s 
+R_ijk    =   -46.2069 I   -523.5420 J   7786.1214 K Mag =  7803.8399 km 
+V_ijk    =   -7.0308 I      3.8791 J      2.8021 K Mag =      8.5047 km/s 
 ------------------------------------------------------------------
 
              ####     Output Data      ####
 
 CLASSIC ORBITAL ELEMENTS: 
 
-Semimajor Axis                     (km) =     13364.7087
+Semimajor Axis                     (km) =     13364.7318
 Eccentricity                            =         0.4991
-Inclination                       (deg) =        93.4994
-Right Ascension of Ascending Node (deg) =       329.8906
-Argument of Perigee               (deg) =        33.3381
-True Anomaly                      (deg) =        55.0275
+Inclination                       (deg) =        93.4990
+Right Ascension of Ascending Node (deg) =       329.8907
+Argument of Perigee               (deg) =        33.3392
+True Anomaly                      (deg) =        55.0257
 
 
 *********************Comfix  Satellite: 1003*******************
@@ -110,23 +110,23 @@ True Anomaly                      (deg) =        55.0275
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459800.323264
+   1.3561     -1.1956      0.0490      2459800.323264
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
 2060.0220    -2.80960   0.68964       0.00370     0.30175    -0.00160
 
-GST  =           4.4272712987 rad     &        253.6639601763 degs
-GST  =           3.2317207611 rad     &        185.1639601763 degs
+GST  =           4.4272712987 rad     &        253.6639601774 degs
+LST  =           3.2317207611 rad     &        185.1639601774 degs
 
              ####       Vectors        ####
 
 Rho_sez  =   -1517.4549 S    472.3092 E   1310.7041 Z Mag =   2060.0220 km 
 Drho_sez =   5.9494 S     -4.5125 E      4.0981 Z Mag =     8.5177 km/s 
-R_site   =   -1357.6799 I   -122.6975 J   6209.9350 K Mag =   6357.8017 km 
+R_site   =   -1357.5773 I   -122.6883 J   6209.9350 K Mag =   6357.7796 km 
 Rho_ijk  =   1241.0292 I   -362.0786 J   1603.8816 K Mag =   2060.0220 km 
 Drho_ijk =   -7.0648 I      3.8924 J      2.7366 K Mag =     8.5177 km/s 
-R_ijk    =   -116.6507 I   -484.7761 J   7813.8166 K Mag =  7829.7092 km 
+R_ijk    =   -116.5481 I   -484.7668 J   7813.8166 K Mag =  7829.7071 km 
 V_ijk    =   -7.0295 I      3.8839 J      2.7366 K Mag =      8.4845 km/s 
 ------------------------------------------------------------------
 
@@ -134,12 +134,12 @@ V_ijk    =   -7.0295 I      3.8839 J      2.7366 K Mag =      8.4845 km/s
 
 CLASSIC ORBITAL ELEMENTS: 
 
-Semimajor Axis                     (km) =     13362.2146
+Semimajor Axis                     (km) =     13362.2327
 Eccentricity                            =         0.4990
-Inclination                       (deg) =        93.4997
-Right Ascension of Ascending Node (deg) =       329.8847
-Argument of Perigee               (deg) =        33.3363
-True Anomaly                      (deg) =        55.6221
+Inclination                       (deg) =        93.4992
+Right Ascension of Ascending Node (deg) =       329.8848
+Argument of Perigee               (deg) =        33.3375
+True Anomaly                      (deg) =        55.6204
 
 
 *********************Comfix  Satellite: 1004*******************
@@ -158,23 +158,23 @@ True Anomaly                      (deg) =        55.6221
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459800.323380
+   1.3561     -1.1956      0.0490      2459800.323380
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
 2033.2510    -2.54020   0.72701       0.00377     0.28502    -0.00176
 
-GST  =           4.4280005102 rad     &        253.7057409176 degs
-GST  =           3.2324499726 rad     &        185.2057409176 degs
+GST  =           4.4280005102 rad     &        253.7057409187 degs
+LST  =           3.2324499726 rad     &        185.2057409187 degs
 
              ####       Vectors        ####
 
 Rho_sez  =   -1457.8887 S    427.1591 E   1351.3716 Z Mag =   2033.2510 km 
 Drho_sez =   5.9548 S     -4.5265 E      4.0330 Z Mag =     8.4979 km/s 
-R_site   =   -1357.5901 I   -123.6875 J   6209.9350 K Mag =   6357.8017 km 
+R_site   =   -1357.4875 I   -123.6782 J   6209.9350 K Mag =   6357.7796 km 
 Rho_ijk  =   1170.6098 I   -322.2762 J   1630.9263 K Mag =   2033.2510 km 
 Drho_ijk =   -7.0604 I      3.9020 J      2.6719 K Mag =     8.4979 km/s 
-R_ijk    =   -186.9803 I   -445.9637 J   7840.8613 K Mag =  7855.7591 km 
+R_ijk    =   -186.8777 I   -445.9543 J   7840.8613 K Mag =  7855.7561 km 
 V_ijk    =   -7.0279 I      3.8883 J      2.6719 K Mag =      8.4646 km/s 
 ------------------------------------------------------------------
 
@@ -182,12 +182,12 @@ V_ijk    =   -7.0279 I      3.8883 J      2.6719 K Mag =      8.4646 km/s
 
 CLASSIC ORBITAL ELEMENTS: 
 
-Semimajor Axis                     (km) =     13362.3732
+Semimajor Axis                     (km) =     13362.3863
 Eccentricity                            =         0.4990
-Inclination                       (deg) =        93.5001
-Right Ascension of Ascending Node (deg) =       329.8798
-Argument of Perigee               (deg) =        33.3376
-True Anomaly                      (deg) =        56.2098
+Inclination                       (deg) =        93.4996
+Right Ascension of Ascending Node (deg) =       329.8799
+Argument of Perigee               (deg) =        33.3387
+True Anomaly                      (deg) =        56.2081
 
 
 *********************Comfix  Satellite: 1005*******************
@@ -206,23 +206,23 @@ True Anomaly                      (deg) =        56.2098
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459800.323495
+   1.3561     -1.1956      0.0490      2459800.323495
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
 2009.2170    -2.26240   0.76496       0.00382     0.26660    -0.00194
 
-GST  =           4.4287297217 rad     &        253.7475216589 degs
-GST  =           3.2331791841 rad     &        185.2475216589 degs
+GST  =           4.4287297217 rad     &        253.74752166 degs
+LST  =           3.2331791841 rad     &        185.24752166 degs
 
              ####       Vectors        ####
 
 Rho_sez  =   -1398.2654 S    381.8743 E   1391.3946 Z Mag =   2009.2170 km 
 Drho_sez =   5.9595 S     -4.5401 E      3.9680 Z Mag =     8.4778 km/s 
-R_site   =   -1357.4995 I   -124.6775 J   6209.9350 K Mag =   6357.8017 km 
+R_site   =   -1357.3970 I   -124.6680 J   6209.9350 K Mag =   6357.7796 km 
 Rho_ijk  =   1100.2019 I   -282.4352 J   1657.3289 K Mag =   2009.2170 km 
 Drho_ijk =   -7.0553 I      3.9112 J      2.6074 K Mag =     8.4778 km/s 
-R_ijk    =   -257.2977 I   -407.1126 J   7867.2640 K Mag =  7881.9912 km 
+R_ijk    =   -257.1951 I   -407.1032 J   7867.2640 K Mag =  7881.9873 km 
 V_ijk    =   -7.0256 I      3.8924 J      2.6074 K Mag =      8.4444 km/s 
 ------------------------------------------------------------------
 
@@ -230,11 +230,11 @@ V_ijk    =   -7.0256 I      3.8924 J      2.6074 K Mag =      8.4444 km/s
 
 CLASSIC ORBITAL ELEMENTS: 
 
-Semimajor Axis                     (km) =     13360.7378
+Semimajor Axis                     (km) =     13360.7462
 Eccentricity                            =         0.4989
-Inclination                       (deg) =        93.5006
-Right Ascension of Ascending Node (deg) =       329.8741
-Argument of Perigee               (deg) =        33.3371
-True Anomaly                      (deg) =        56.7953
+Inclination                       (deg) =        93.5001
+Right Ascension of Ascending Node (deg) =       329.8742
+Argument of Perigee               (deg) =        33.3382
+True Anomaly                      (deg) =        56.7936
 
 

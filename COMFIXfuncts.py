@@ -265,9 +265,9 @@ def get_tle():
 
 def gstim0(Yr):
 
-    JD = 367.0 * Yr - int(math.floor(7.0 * (Yr) *0.25)) + 30 + 1721014.5
+    JD = 367.0 * Yr - int(math.floor(7.0 * (Yr) *0.25)) + 30.0 + 1721014.5
     Tu = (int(math.floor(JD)) + 0.5 - 2451545.0) / 36525.0
-    GST0 = 1.753368559 + 628.3319705 * Tu + 6.770708127**(-6) * Tu * Tu
+    GST0 = 1.753368559 + 628.3319705 * Tu + 6.770708127**(-6.0) * Tu * Tu
 
     GST0 = revcheck(GST0, 2*math.pi)
     if GST0 < 0.0:
@@ -392,10 +392,10 @@ def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rh
 
     Yr = 2000 + int(jd[0] + jd[1])
 
-    print(day, Yr)
+    #print(day, Yr)
 
     temp = dayofyr2mdhms(Yr, day)
-    print(temp)
+    #print(temp)
 
     Mon = temp[0]
     D = temp[1]
@@ -421,12 +421,12 @@ def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rh
     file_out.write("             ####     Working Data    ####\n\n")
     file_out.write("     LAT        LON         ALT         Julian Date\n")
     file_out.write("    (rad)      (rad)       (km)           (days)    \n")
-    file_out.write(f"   {format(sitlat, '.4f')}     {format(sitlat, '.4f')}      {format(sitalt, '.4f')}      {format(JD,'.6f')}\n\n")
+    file_out.write(f"   {format(sitlat, '.4f')}     {format(sitlon, '.4f')}      {format(sitalt, '.4f')}      {format(JD,'.6f')}\n\n")
     file_out.write("   RHO         DRHO        EL           DEL         AZ          DAZ  \n")
     file_out.write("   (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) \n")
     file_out.write(f"{format(rho, '.4f')}    {format(drho, '.5f')}   {format(el, '.5f')}       {format(Del, '.5f')}     {format(az, '.5f')}    {format(daz, '.5f')}\n\n")
     file_out.write(f"GST  =           {round(GST, 10)} rad     &        {round(GST * 180 / math.pi, 10)} degs\n")
-    file_out.write(f"GST  =           {round(LST, 10)} rad     &        {round(LST * 180 / math.pi, 10)} degs\n\n")
+    file_out.write(f"LST  =           {round(LST, 10)} rad     &        {round(LST * 180 / math.pi, 10)} degs\n\n")
     file_out.write("             ####       Vectors        ####\n\n")
     file_out.write(f"Rho_sez  =   {format(rho_sez[0], '5.4f')} S    {format(rho_sez[1], '5.4f')} E   {format(rho_sez[2], '5.4f')} Z Mag =   {format(mag(rho_sez), '5.4f')} km \n")
     file_out.write(f"Drho_sez =   {format(drho_sez[0], '5.4f')} S     {format(drho_sez[1], '5.4f')} E      {format(drho_sez[2], '5.4f')} Z Mag =     {format(mag(drho_sez), '5.4f')} km/s \n")
@@ -471,7 +471,7 @@ def gstlst(jd, sitlon):
 
     D = day - 1.0 + (hr/24.0) + (min/1440.0) + (sec/86400.0)
 
-    theta_g0 = 100.63004655
+    theta_g0 = 100.6300465510740309582616 #gstim0(Yr +2000)*180.0/math.pi
 
     theta_g = theta_g0 + 1.002737791737697*360*D
 
@@ -484,8 +484,9 @@ def gstlst(jd, sitlon):
 
 def site(sitlat, sitalt, lst):
 
-    x = abs((Ae / (math.sqrt(1-(Ee**2)*np.sin(sitlat))))+sitalt)*np.cos(sitlat)
-    z = abs((Ae*(1-Ee**2))/(math.sqrt(1-(Ee**2)*(math.sin(sitlat)**2)))+sitalt)*np.sin(sitlat)
+    x = abs((Ae / (math.sqrt(1.0-(Ee**2.0)*(np.sin(sitlat)**2.0))))+sitalt)*np.cos(sitlat)
+    print(x)
+    z = abs((Ae*(1.0-Ee**2.0))/(math.sqrt(1.0-(Ee**2.0)*(math.sin(sitlat)**2.0)))+sitalt)*np.sin(sitlat)
 
     R_site = np.array([x*np.cos(lst), x*np.sin(lst), z])
 

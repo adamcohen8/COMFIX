@@ -8,10 +8,10 @@ import COMFIXfuncts as CF
 
 #print(CF.gstim0(2022)*180/math.pi)
 
-print(CF.julianday(2022,8,8,19,45,10.0))
-print(CF.invjulianday(2459800.3230324076))
+#print(CF.julianday(2022,8,8,19,45,10.0))
+#print(CF.invjulianday(2459800.3230324076))
 
-print(CF.dayofyr2mdhms(2022, 220))
+#print(CF.dayofyr2mdhms(2022, 220))
 
 #print(CF.Sun(2459823.0788194444))
 
@@ -24,3 +24,6 @@ print(CF.dayofyr2mdhms(2022, 220))
 
 #print(CF.ijktorv(np.array([1381.8950, -441.5631, 1547.8381]), np.array([-7.0721, 3.8723, 2.8678]), np.array([-1357.7548, -120.7082, 6209.9350])))
 
+
+print(CF.site(1.356120828799594, 0.049, 3.2302623381265736))
+print(CF.site(1.356120828799594, 0.049, 3.2302623391265736))
