@@ -49,12 +49,12 @@ for line in lines:
     LST = GST_LST[1]
 
 
-    print(GST, LST)
+    #print(GST, LST)
 
     #Find R site
     Rsite = CF.site(sitlat, sitalt, LST)
 
-    print(Rsite)
+    #print(Rsite)
 
 
     #Find Rho and Drho in SEZ
@@ -62,20 +62,20 @@ for line in lines:
     rho_sez = rho_drho[0]
     drho_sez = rho_drho[1]
 
-    print(rho_sez, drho_sez)
+    #print(rho_sez, drho_sez)
 
     #Convert Rho and Drho
     rho_ijk = CF.SEZ2IJK(rho_sez, sitlat, LST)
     drho_ijk = CF.SEZ2IJK(drho_sez, sitlat, LST)
 
-    print(rho_ijk, drho_ijk)
+    #print(rho_ijk, drho_ijk)
 
     #Find R and V
     RV = CF.ijktorv(rho_ijk, drho_ijk, Rsite)
     R = RV[0]
     V = RV[1]
 
-    print(R,V)
+    #print(R,V)
     #Find COEs
     COEs = CF.elOrb(R, V)
     a = COEs[0]
@@ -96,7 +96,7 @@ for line in lines:
 
     #Write values to files
 
-    print(a,e, Incl, Raan, Argp, Nu)
+    #print(a,e, Incl, Raan, Argp, Nu)
 
     CF.writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez,rho_ijk, drho_sez, drho_ijk, jd, satID, GST, LST, R, V, Rsite)
 

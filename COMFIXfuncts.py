@@ -77,7 +77,7 @@ def elOrb(R, V):
     magr = mag(R)
     magv = mag(V)
 
-    A = -(MU/2) * 1/((magv**2)/2 -(MU/magr))
+    A = -(MU/2.0) * 1.0/((magv**2.0)/2.0 -(MU/magr))
 
     h = np.cross(R,V)
 
@@ -87,19 +87,19 @@ def elOrb(R, V):
 
     RAAN = vecangle(n, [1.0,0.0,0.0])
     if n[1] < 0.0:
-        RAAN = 2*math.pi - RAAN
+        RAAN = 2.0*math.pi - RAAN
 
-    Ev = scalarMultiply((1/MU),np.subtract(scalarMultiply((magv**2 - MU/magr),R),scalarMultiply(np.dot(R,V),V)))
+    Ev = scalarMultiply((1.0/MU),np.subtract(scalarMultiply((magv**2.0 - MU/magr),R),scalarMultiply(np.dot(R,V),V)))
 
     Ecc = mag(Ev)
 
     Argp = vecangle(Ev, n)
     if Ev[2] < 0.0:
-        Argp = 2*math.pi - Argp
+        Argp = 2.0*math.pi - Argp
 
     Nu = vecangle(Ev, R)
     if np.dot(R,V) < 0.0:
-        Nu = 2*math.pi - Nu
+        Nu = 2.0*math.pi - Nu
 
 
     # Hbar = np.cross(R, V)
