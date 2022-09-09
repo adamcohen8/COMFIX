@@ -9,7 +9,9 @@ import COMFIXfuncts as CF
 #print(CF.gstim0(2022)*180/math.pi)
 
 print(CF.julianday(2022,8,8,19,45,10.0))
-print(CF.invjulianday(2459823.0788194444))
+print(CF.invjulianday(2459800.3230324076))
+
+print(CF.dayofyr2mdhms(2022, 220))
 
 #print(CF.Sun(2459823.0788194444))
 

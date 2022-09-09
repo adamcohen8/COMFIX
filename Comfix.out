@@ -7,14 +7,14 @@
   77.70   -68.50   49.00     2022    220       19:45:10.00
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
-   (km)       (km/s)     (deg)        (deg/s)     (deg)       (deg/s) 
+  (km)        (km/s)      (deg)        (deg/s)     (deg)       (deg/s) 
    2121.418    -3.3204    35.3507     0.20367    18.9606    -0.07653
 ------------------------------------------------------------
              ####     Working Data    ####
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459799.5
+   1.3561     1.3561      0.0490      2459800.323032
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
@@ -55,14 +55,14 @@ True Anomaly                      (deg) =        54.4319
   77.70   -68.50   49.00     2022    220       19:45:20.00
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
-   (km)       (km/s)     (deg)        (deg/s)     (deg)       (deg/s) 
+  (km)        (km/s)      (deg)        (deg/s)     (deg)       (deg/s) 
    2089.442    -3.0698    37.4106     0.20813    18.1622    -0.08359
 ------------------------------------------------------------
              ####     Working Data    ####
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459799.5
+   1.3561     1.3561      0.0490      2459800.323148
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
@@ -103,14 +103,14 @@ True Anomaly                      (deg) =        55.0275
   77.70   -68.50   49.00     2022    220       19:45:30.00
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
-   (km)       (km/s)     (deg)        (deg/s)     (deg)       (deg/s) 
+  (km)        (km/s)      (deg)        (deg/s)     (deg)       (deg/s) 
    2060.022    -2.8096    39.5133     0.21219    17.2888    -0.09159
 ------------------------------------------------------------
              ####     Working Data    ####
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459799.5
+   1.3561     1.3561      0.0490      2459800.323264
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
@@ -151,14 +151,14 @@ True Anomaly                      (deg) =        55.6221
   77.70   -68.50   49.00     2022    220       19:45:40.00
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
-   (km)       (km/s)     (deg)        (deg/s)     (deg)       (deg/s) 
+  (km)        (km/s)      (deg)        (deg/s)     (deg)       (deg/s) 
    2033.251    -2.5402    41.6544     0.21578    16.3305    -0.10068
 ------------------------------------------------------------
              ####     Working Data    ####
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459799.5
+   1.3561     1.3561      0.0490      2459800.323380
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 
@@ -199,14 +199,14 @@ True Anomaly                      (deg) =        56.2098
   77.70   -68.50   49.00     2022    220       19:45:50.00
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
-   (km)       (km/s)     (deg)        (deg/s)     (deg)       (deg/s) 
+  (km)        (km/s)      (deg)        (deg/s)     (deg)       (deg/s) 
    2009.217    -2.2624    43.8288     0.21878    15.2753    -0.11106
 ------------------------------------------------------------
              ####     Working Data    ####
 
      LAT        LON         ALT         Julian Date
     (rad)      (rad)       (km)           (days)    
-   1.3561     1.3561      0.0490      2459799.5
+   1.3561     1.3561      0.0490      2459800.323495
 
    RHO         DRHO        EL           DEL         AZ          DAZ  
    (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) 

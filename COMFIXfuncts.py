@@ -392,13 +392,16 @@ def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rh
 
     Yr = 2000 + int(jd[0] + jd[1])
 
+    print(day, Yr)
+
     temp = dayofyr2mdhms(Yr, day)
+    print(temp)
 
     Mon = temp[0]
     D = temp[1]
-    Hr = temp[2]
-    M = temp[3]
-    S = temp[4]
+    Hr = int(jd[5] + jd[6])
+    M = int(jd[7] + jd[8])
+    S = float(jd[9] + jd[10] + jd[11] + jd[12] + jd[13])
 
     JD = julianday(Yr, Mon, D, Hr, M, S)
 
@@ -412,13 +415,13 @@ def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rh
     file_out.write("  (deg)    (deg)    (m)              Number   (hr:min:sec)\n")
     file_out.write(f"  {format(sitlat * 180 / math.pi, '.2f')}   {format(sitlon * 180 / math.pi, '.2f')}   {format(sitalt * 1000, '.2f')}     {2022}    {day}       {UT}\n\n")
     file_out.write("   RHO         DRHO        EL           DEL         AZ          DAZ  \n")
-    file_out.write("   (km)       (km/s)     (deg)        (deg/s)     (deg)       (deg/s) \n")
+    file_out.write("  (km)        (km/s)      (deg)        (deg/s)     (deg)       (deg/s) \n")
     file_out.write(f"   {round(rho, 4)}    {round(drho, 5)}    {round((el * 180 / math.pi), 5)}     {round((Del * 180 / math.pi), 5)}    {round((az * 180 / math.pi), 5)}    {round((daz * 180 / math.pi), 5)}\n")
     file_out.write("------------------------------------------------------------\n")
     file_out.write("             ####     Working Data    ####\n\n")
     file_out.write("     LAT        LON         ALT         Julian Date\n")
     file_out.write("    (rad)      (rad)       (km)           (days)    \n")
-    file_out.write(f"   {format(sitlat, '.4f')}     {format(sitlat, '.4f')}      {format(sitalt, '.4f')}      {JD}\n\n")
+    file_out.write(f"   {format(sitlat, '.4f')}     {format(sitlat, '.4f')}      {format(sitalt, '.4f')}      {format(JD,'.6f')}\n\n")
     file_out.write("   RHO         DRHO        EL           DEL         AZ          DAZ  \n")
     file_out.write("   (km)       (km/s)     (rad)        (rad/s)     (rad)       (rad/s) \n")
     file_out.write(f"{format(rho, '.4f')}    {format(drho, '.5f')}   {format(el, '.5f')}       {format(Del, '.5f')}     {format(az, '.5f')}    {format(daz, '.5f')}\n\n")
@@ -453,8 +456,8 @@ def gstlst(jd, sitlon):
 
     jd = str(jd)
 
-    # Yr = jd[0] +jd[1]
-    # Yr = int(Yr)
+    Yr = jd[0] +jd[1]
+    Yr = int(Yr)
 
     day = jd[2] + jd[3] + jd[4]
     day = float(day)
