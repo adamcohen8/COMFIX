@@ -16,7 +16,32 @@ w = np.array([0, 0, 0.00007292115])
 ########################################################
 #Given Functions
 def axisrot(A, axis, alpha):
-
+#########################################################
+#
+#  Use           : B=axisrot(A,axis,alpha)
+#
+# This function performs a rotation of angle ALPHA about a desired axis.
+#
+#   Author       : Dr. RON LISOWSKI, DFAS,      5 Jan 95
+#   In MatLab    : Thomas L. Yoder, LtC, USAFA, Spring 00
+#   In Python    : Adam H. Cohen, C2C, USAFA, Fall 22
+#
+#   Input        :
+#     A          % Input vector                Vector of dimension three
+#     axis       % desired axis for rotation:  1, 2 or 3
+#     alpha      % Angle of rotation           radians
+#
+#   Output       :
+#     B          % Rotated Vector              Vector of dimension three
+#
+#   Locals       : None.
+#
+#   Coupling     :
+#     mag        % Finds the magnitude of a vector
+#
+#   References   :
+#
+#########################################################
     B = np.array([0.0,0.0,0.0])
 
     if axis == 1:
@@ -37,16 +62,81 @@ def axisrot(A, axis, alpha):
 
     return B
 
-
 def cuberoot(Xval):
-
+#######################################################
+#
+#  Use          : temp = cuberoot ( XVal )
+#
+#  This function Rteurns the Cube Root of a real number.
+#
+#  Author       :  Dr Ron Lisowski  USAFA/DFAS  719-333-4110   15 Aug 1997
+#  In MatLab    :  Dr Ron Lisowski  USAFA/DFAS  719-333-4109    2 Jul 2001
+#  In Python    :  C2C Adam Cohen   USAFA       954-980-7732   10 Sep 2022
+#
+# Inputs        :
+#
+#   XVal        - Input Value                                  any real
+#
+# OutPuts       :
+#   temp        - Returned                                     any real
+#
+# Locals        :
+#   None.
+#
+# Constants     :
+#   None.
+#
+# Coupling      :
+#   None.
+#######################################################
     Temp = Xval/abs(Xval) * abs(Xval) ** (1/3)
 
     return Temp
 
-
 def dayofyr2mdhms(Yr, Days):
-
+######################################################
+#
+#  Use           : [Mon,D,H,M,Sec]=dayofyr2mdhms(Yr,Days)
+#
+#  This function converts the day of the year, days, to the month
+#  day, hour, minute and second.
+#
+#  Algorithm     : Set up array for the number of days per month
+#                  loop through a temp value while the value is < the days
+#                  Perform integer conversions to the correct day and month
+#                  Convert remainder into H M S using type conversions
+#
+#  Author        : Capt Dave Vallado  USAFA/DFAS     719-472-4109  26 Feb 1990
+#  In Ada        : Dr Ron Lisowski    USAFA/DFAS     719-472-4110  17 May 1995
+#  In MATLAB     : LtCol Thomas L. Yoder USAFA/DFAS  719-472-4110  Spring 00
+#  In Python     : C2C Adam H. Cohen  USAFA          954-980-7732  Fall   22
+#
+#  Inputs        :
+#    Yr          - Year                                 1900 .. 2100
+#    Days        - Julian Day of the year               1.0  .. 366.0
+#
+#  OutPuts       :
+#    Mon         - Month                                   1 .. 12
+#    D           - Day                                     1 .. 28,29,30,31
+#    H           - Hour                                    0 .. 23
+#    M           - Minute                                  0 .. 59
+#    Sec         - Second                                0.0 .. 59.999
+#
+#  Locals        :
+#    DayOfyr     - Day of year
+#    Temp        - Temporary Long_Float value
+#    IntTemp     - Temporary 16 bit Integer value
+#    i           - Index
+#
+#  Constants     :
+#    LMonth(12)  - Integer Array containing the number of days per month
+#
+#  Coupling      : None
+#
+#  References    :
+#    None.
+#
+#####################################################
     DayOfYr = int(math.floor(Days))
 
     LMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -71,7 +161,7 @@ def dayofyr2mdhms(Yr, Days):
 
     return [Mon, D, H, M, Sec]
 
-
+#Not Documented
 def elOrb(R, V):
 
     magr = mag(R)
@@ -223,7 +313,7 @@ def elOrb(R, V):
 
     return [A, Ecc, Incl, RAAN, Argp, Nu]
 
-
+#Not Documented
 def scalarMultiply(scalar, vector):
 
     newvec = np.array([0.0,0.0,0.0])
@@ -233,9 +323,45 @@ def scalarMultiply(scalar, vector):
 
     return newvec
 
-
 def finddays(Year, Month, Day, Hr, Min, Sec):
-
+######################################################
+#
+#  Use           : DDays=finddays(Year,Month,Day,Hr,Min,Sec)
+#
+#  This function finds the fractional days through a year given the year,
+#    month, day, hour, minute and second. Midnight New Year's is 0.0
+#
+#  Algorithm     : Set up array for the number of days per month
+#                  Check for a leap year
+#                  Loop to find the elapsed days in the year
+#
+#  Author        : Capt Dave Vallado  USAFA/DFAS  719-472-4109  11 Dec 1990
+#  In Ada        : Dr Ron Lisowski    USAFA/DFAS  719-472-4110  17 May 1995
+#  In MatLab     : LtCol Thomas Yoder USAFA/DFAS  719-333-4110  Spring 2000
+#  In Python     : C2C Adam Cohen     USAFA       954-980-7732  Fall   2022
+#
+#  Inputs        :
+#    Year        - Year                                 1900 .. 2100
+#    Month       - Month                                   1 .. 12
+#    Day         - Day                                     1 .. 28,29,30,31
+#    Hr          - Hour                                    0 .. 23
+#    Min         - Minute                                  0 .. 59
+#    Sec         - Second                                0.0 .. 59.999
+#
+#  OutPuts       :
+#    DDays        - Fractional elapsed day of year    days
+#
+#  Locals        :
+#    i           - Index
+#	 LMonth	     - array holding number of days in each month
+#
+#  Constants     :
+#    None.
+#
+#  Coupling      :
+#    None.
+#
+######################################################
     LMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     if (Year - 1900) % 4 == 0:
         LMonth[1] = 29
@@ -249,22 +375,61 @@ def finddays(Year, Month, Day, Hr, Min, Sec):
 
     DDays = DDays + (Day - 1) + (Hr / 24.0) + (Min / 1440.0) + (Sec / 86400.0)
 
-
     return DDays
 
-
+#Not Written
 def fprintvec():
 
     return 0
 
-
+#Not Written
 def get_tle():
 
     return 0
 
 
 def gstim0(Yr):
-
+#########################################################
+#
+#  Use           : GST0=gstim0(Yr)
+#
+#  This function finds the Greenwich Sidereal time at the beginning of a year.
+#  This formula is derived from the Astronomical Almanac and is good only for
+#  0 hr UT, 1 Jan of a year.
+#
+#  Algorithm     : Find the Julian Date Ref 4713 BC
+#                  Perform expansion calculation to obtain the answer
+#                  Check the answer for the correct quadrant and size
+#
+#  Author        : Capt Dave Vallado  USAFA/DFAS  719-472-4109   12 Feb 1989
+#  In Ada        : Dr Ron Lisowski    USAFA/DFAS  719-472-4110   17 May 1995
+#  In MatLab     : LtCol Thomas Yoder USAFA/DFAS  719-333-4110   Spring 2000
+#  In Python     : C2C Adam Cohen     USAFA       954-980-7732   Fall   2022
+#
+#  Inputs        :
+#    Yr          - Year                                 1988, 1989, etc.
+#
+#  OutPuts       :
+#    GST0        - Returned Greenwich Sidereal Time     0 to 2Pi rad
+#
+#  Locals        :
+#    JD          - Julian Date                          days from 4713 B.C.
+#    Tu          - Julian Centuries from 1 Jan 2000
+#
+#  Constants     :
+#    TwoPI         Two times Pi (DFASmath.m constant)
+#
+#  Coupling      :
+#    mod			  MatLab modulus function
+#
+#  References    :
+#    1989 Astronomical Almanac pg. B6
+#    Escobal       pg. 18 - 21
+#    Explanatory Supplement pg. 73-75
+#    Kaplan        pg. 330-332
+#    BMW           pg. 103-104
+#
+#########################################################
     JD = 367.0 * Yr - int(math.floor(7.0 * (Yr) *0.25)) + 30.0 + 1721014.5
     Tu = (int(math.floor(JD)) + 0.5 - 2451545.0) / 36525.0
     GST0 = 1.753368559 + 628.3319705 * Tu + 6.770708127**(-6.0) * Tu * Tu
@@ -272,7 +437,6 @@ def gstim0(Yr):
     GST0 = revcheck(GST0, 2*math.pi)
     if GST0 < 0.0:
         GST0 = GST0 + 2*math.pi
-
 
     return GST0
 
