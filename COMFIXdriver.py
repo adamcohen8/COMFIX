@@ -52,7 +52,7 @@ for line in lines:
     #print(GST, LST)
 
     #Find R site
-    print(sitlat, sitalt, LST)
+    #print(sitlat, sitalt, LST)
     Rsite = CF.site(sitlat, sitalt, LST)
     #Rsite = np.array([-1357.7548, -120.7082, 6209.9350])
 

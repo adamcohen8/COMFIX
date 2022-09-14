@@ -634,6 +634,7 @@ def gstlst(jd, sitlon):
     sec = float(sec)
 
     D = day - 1.0 + (hr/24.0) + (min/1440.0) + (sec/86400.0)
+    print(D)
 
     theta_g0 = 100.6300465510740309582616 #gstim0(Yr +2000)*180.0/math.pi
 
@@ -649,7 +650,7 @@ def gstlst(jd, sitlon):
 def site(sitlat, sitalt, lst):
 
     x = abs((Ae / (math.sqrt(1.0-(Ee**2.0)*(np.sin(sitlat)**2.0))))+sitalt)*np.cos(sitlat)
-    print(x)
+    #print(x)
     z = abs((Ae*(1.0-Ee**2.0))/(math.sqrt(1.0-(Ee**2.0)*(math.sin(sitlat)**2.0)))+sitalt)*np.sin(sitlat)
 
     R_site = np.array([x*np.cos(lst), x*np.sin(lst), z])
