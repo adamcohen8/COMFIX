@@ -548,30 +548,67 @@ def vecangle(A, B):
     return Theta
 
 def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez, rho_ijk, drho_sez, drho_ijk, jd, satID, GST, LST, R, V, Rsite):
+#########################################################
+#
+#  Use           : Comfix.out = writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez, rho_ijk, drho_sez, drho_ijk, jd, satID, GST, LST, R, V, Rsite)
+#
+#   This Function takes the parameters and writes them to an
+#   output file
+#
+#   Author       : C2C Adam Cohen, DFAS,      18 Sep 2022
+#
+#   Input        :
+#       Lat - latitude (deg and rad)
+#       Lon - Longitude (deg and rad)
+#       Alt - Altitude (km and m)
+#       Rho - Range (Magnitude, SEZ, IJK) (km)
+#       Drho- Range Rate (Magnitude, SEZ, IJK) (km/s)
+#       daz - Time derivative of Azimuth angle (deg/s and rad/s)
+#       Del - Time derivative of Elevation angle (deg/s and rad/s)
+#       Time- HR:MIN:SEC.MILISECOND
+#       Year
+#       GST - Greenwich Sidereal Time (deg and rad)
+#       LST - Local Sidereal Time (deg and rad)
+#       R   - Position Vector (Magnitude and IJK) (km)
+#       V   - Velocity Vector (Magnitude and IJK) (km)
+#       A   - Semimajor Axis (km)
+#       E   - Eccentricity
+#       Incl- Inclination (deg)
+#       Argp- Argument of Perigee (deg)
+#       Raan- Right Ascension of the Ascending Node (deg)
+#       Nu  - True Anomaly (deg)
+#       Julian Date (days)
+#
+#   Output       :
+#       Comfix.out - A text file containing output data.
+#
+#   Locals       : None.
+#
+#   Constants    : None.
+#
+#   Coupling     : None.
+#
+#   References   :
+#     Astro Engr 321 Course Handbook COMFIX project description
+#
+#########################################################
 
+    #Get everything else needed for output file
     day = jd[2] + jd[3] + jd[4]
     day = int(day)
-
     UT = jd[5] + jd[6]+ ':' + jd[7] + jd[8] + ':' + jd[9] + jd[10] + jd[11] + jd[12] + jd[13]
-
     Yr = 2000 + int(jd[0] + jd[1])
-
-    #print(day, Yr)
-
     temp = dayofyr2mdhms(Yr, day)
-    #print(temp)
-
     Mon = temp[0]
     D = temp[1]
     Hr = int(jd[5] + jd[6])
     M = int(jd[7] + jd[8])
     S = float(jd[9] + jd[10] + jd[11] + jd[12] + jd[13])
-
     JD = julianday(Yr, Mon, D, Hr, M, S)
 
 
 
-
+    #Write everything to output file
     file_out.write(f"*********************Comfix  Satellite: {satID}*******************\n")
     file_out.write("---------------------------------------------------------------\n")
     file_out.write("             ####     Input Data      ####\n\n")
@@ -875,7 +912,7 @@ def ijktorv(rho_ijk, drho_ijk, R_site):
     R[1] = R_site[1] + rho_ijk[1]
     R[2] = R_site[2] + rho_ijk[2]
 
-    #V by using the transport therem
+    #Find V by using the transport therem
     b = np.cross(w, R)
 
     V[0] = drho_ijk[0] + b[0]
