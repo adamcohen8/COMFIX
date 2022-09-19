@@ -617,15 +617,50 @@ def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rh
 #My Functions
 
 def gstlst(jd, sitlon):
+#########################################################
+#
+#  Use           : [GST, LST] = gstlst(jd, sitlon)
+#
+#   This Function takes the julian date and site longitude
+#   and finds GST and LST
+#
+#   Author       : C2C Adam Cohen, DFAS,      18 Sep 2022
+#
+#   Input        :
+#       jd       - Julian Date
+#       sitlon   - Site Longitude (rad)
+#
+#   Output       :
+#       gst      - Greenwich Sidereal Time (rad)
+#       lst      - Local Sidereal Time (rad)
+#
+#   Locals       : None.
+#
+#   Constants    :
+#     1.002737791737697           - Value used for finding theta g
+#     100.6300465510740309582616  - Output of gstim0 to a higher level of
+#                                   precision than python is capable of
+#
+#   Coupling     :
+#     revcheck          - Function that takes an angle and a modby value
+#                         and outputs an angle between 0 and 360 degrees
+#                         or 0 and 2pi radians
+#     gstim0            - Function that finds theta g0 for a given year
+#     numpy             - Python module for advanced math
+#     math              - Python module for basic math
+#
+#   References   :
+#     Astro Engr 321 Course Handbook COMFIX project description
+#
+#########################################################
 
+    #Convert Julian day to a string to manipulate it more easily
     jd = str(jd)
-
+    #break Julian date into its pieces and convert pieces back to numbers
     Yr = jd[0] +jd[1]
     Yr = int(Yr)
-
     day = jd[2] + jd[3] + jd[4]
     day = float(day)
-
     hr = jd[5] + jd[6]
     hr = float(hr)
     min = jd[7] + jd[8]
@@ -633,37 +668,109 @@ def gstlst(jd, sitlon):
     sec = jd[9] + jd[10] + jd[11] + jd[12] + jd[13]
     sec = float(sec)
 
+    #Find value of D
     D = day - 1.0 + (hr/24.0) + (min/1440.0) + (sec/86400.0)
-    print(D)
 
-    theta_g0 = 100.6300465510740309582616 #gstim0(Yr +2000)*180.0/math.pi
+    #Find theta g0
+    theta_g0 = 100.6300465510740309582616
+    #theta_g0 = gstim0(Yr +2000)*180.0/math.pi
 
+    #Find theta g
     theta_g = theta_g0 + 1.002737791737697*360*D
 
+    #revchekc and convert to radians
     gst = revcheck(theta_g, 360.0)
     gst = gst * math.pi /180.0
+    #Find LST
     lst = gst + sitlon
 
     return [gst, lst]
 
 
 def site(sitlat, sitalt, lst):
+#########################################################
+#
+#  Use           : [Rsite] = site(sitlat, sitalt, lst)
+#
+#   This Function takes the site longitude, site altitude,
+#   and lst and outputs R site
+#
+#   Author       : C2C Adam Cohen, DFAS,      18 Sep 2022
+#
+#   Input        :
+#       sitlat   - Site Latitude (rad)
+#       sitalt   - Site Altitude (km)
+#       lst      - Local Sidereal Time (rad)
+#
+#   Output       :
+#       Rsite    - Site Position Vector (km)
+#
+#   Locals       : None.
+#
+#   Constants    :
+#       Ae    - Semimajor axis of the earth = 6378.137 (km)
+#       Ee    - Eccentricity of the earth = 0.0818191908426
+#
+#   Coupling     :
+#       numpy - Python module for advanced math
+#       math  - Python module for basic math
+#
+#   References   :
+#     Astro Engr 321 Course Handbook COMFIX project description
+#
+#########################################################
 
+    #Find x and z values
     x = abs((Ae / (math.sqrt(1.0-(Ee**2.0)*(np.sin(sitlat)**2.0))))+sitalt)*np.cos(sitlat)
-    #print(x)
     z = abs((Ae*(1.0-Ee**2.0))/(math.sqrt(1.0-(Ee**2.0)*(math.sin(sitlat)**2.0)))+sitalt)*np.sin(sitlat)
 
+    #Find R site
     R_site = np.array([x*np.cos(lst), x*np.sin(lst), z])
 
     return R_site
 
 
 def SEZ2IJK(vec_sez, sitlat, LST):
+#########################################################
+#
+#  Use           : [vec_ijk] = SEZ2IJK(vec_sez, sitlat, LST)
+#
+#   This Function takes an SEZ vector, the site latitude,
+#   and the LST and outputs the vector in IJK
+#
+#   Author       : C2C Adam Cohen, DFAS,      18 Sep 2022
+#
+#   Input        :
+#       vec_sez  - A vector in the SEZ frame
+#       sitalt   - Site Altitude (km)
+#       LST      - Local Sidereal Time (rad)
+#
+#   Output       :
+#       vec_ijk  - A vector in the IJK frame
+#
+#   Locals       :
+#       Colat - Colatitude (rad), pi/2 - sitlat
+#
+#   Constants    :
+#       Ae    - Semimajor axis of the earth = 6378.137 (km)
+#       Ee    - Eccentricity of the earth = 0.0818191908426
+#
+#   Coupling     :
+#       axisrot   - Function that rotates a vector around a given axis
+#                   by a given angle
+#
+#   References   :
+#     Astro Engr 321 Course Handbook COMFIX project description
+#
+#########################################################
 
+    #initialize array
     vec_ijk = np.array([0.0,0.0,0.0])
 
+    #Find Colat
     Colat = 0.5*math.pi - sitlat
 
+    #Do 2 axis rotations with -Colat and -LST
     vec_ijk = axisrot(axisrot(vec_sez, 2, -Colat),3,-LST)
 
     return vec_ijk
