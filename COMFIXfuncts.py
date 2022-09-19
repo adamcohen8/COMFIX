@@ -756,8 +756,8 @@ def SEZ2IJK(vec_sez, sitlat, LST):
 #       Ee    - Eccentricity of the earth = 0.0818191908426
 #
 #   Coupling     :
-#       axisrot   - Function that rotates a vector around a given axis
-#                   by a given angle
+#       axisrot   - Function that rotates a vector around
+#                   a given axis by a given angle
 #
 #   References   :
 #     Astro Engr 321 Course Handbook COMFIX project description
@@ -777,14 +777,50 @@ def SEZ2IJK(vec_sez, sitlat, LST):
 
 
 def OBS2RANGERANGERATE(rho, az, el, drho, daz, Del):
+#########################################################
+#
+#  Use           : [rho_sez, drho_sez] = OBS2RANGERANGERATE(rho, az, el, drho, daz, Del)
+#
+#   This Function takes Observation data and outputs
+#   Range and Range Rate in the SEZ frame
+#
+#   Author       : C2C Adam Cohen, DFAS,      18 Sep 2022
+#
+#   Input        :
+#       rho      - Range magnitude (km)
+#       az       - Azimuth angle (rad)
+#       el       - Elevation angle (rad)
+#       drho     - Range rate magnitude (km/s)
+#       daz      - Time derivative of Azimuth angle (deg/s)
+#       Del      - Time derivative of Elevation angle (deg/s)
+#
+#   Output       :
+#       rho_sez  - Range in SEZ
+#       Drho_sez - Range Rate in SEZ
+#
+#   Locals       : None.
+#
+#   Constants    : None.
+#
+#   Coupling     :
+#       numpy - Python module for advanced math
+#       math  - Python module for basic math
+#
+#   References   :
+#     Astro Engr 321 Course Handbook COMFIX project description
+#
+#########################################################
 
+    #Initialize arrays
     rho_sez = np.array([0.0,0.0,0.0])
     drho_sez = np.array([0.0, 0.0, 0.0])
 
+    #Find rho_sez using astro 321 equations
     rho_sez[0] = -rho*np.cos(az)*np.cos(el)
     rho_sez[1] = rho*np.sin(az)*np.cos(el)
     rho_sez[2] = rho*np.sin(el)
 
+    #Find Drho_sez using astro 321 equations
     drho_sez[0] = -drho*np.cos(az)*np.cos(el) + rho*daz*np.sin(az)*np.cos(el) + rho*Del*np.cos(az)*np.sin(el)
     drho_sez[1] = drho*np.sin(az)*np.cos(el) + rho*daz*np.cos(az)*np.cos(el) - rho*Del*np.sin(az)*np.sin(el)
     drho_sez[2] = drho*np.sin(el) + rho*Del*np.cos(el)
@@ -793,14 +829,53 @@ def OBS2RANGERANGERATE(rho, az, el, drho, daz, Del):
 
 
 def ijktorv(rho_ijk, drho_ijk, R_site):
+#########################################################
+#
+#  Use           : [rho_sez, drho_sez] = OBS2RANGERANGERATE(rho, az, el, drho, daz, Del)
+#
+#   This Function takes Observation data and outputs
+#   Range and Range Rate in the SEZ frame
+#
+#   Author       : C2C Adam Cohen, DFAS,      18 Sep 2022
+#
+#   Input        :
+#       rho      - Range magnitude (km)
+#       az       - Azimuth angle (rad)
+#       el       - Elevation angle (rad)
+#       drho     - Range rate magnitude (km/s)
+#       daz      - Time derivative of Azimuth angle (deg/s)
+#       Del      - Time derivative of Elevation angle (deg/s)
+#
+#   Output       :
+#       rho_sez  - Range in SEZ
+#       Drho_sez - Range Rate in SEZ
+#
+#   Locals       :
+#       b        - The cross product of w and R
+#
+#   Constants    :
+#       w        - Anglular velocity of the rotation of the
+#                  earth = 0.00007292115 K (rad/s)
+#
+#   Coupling     :
+#       numpy - Python module for advanced math
+#       math  - Python module for basic math
+#
+#   References   :
+#     Astro Engr 321 Course Handbook COMFIX project description
+#
+#########################################################
 
+    #Initialize arrays
     R = np.array([0.0, 0.0, 0.0])
     V = np.array([0.0, 0.0, 0.0])
 
+    #Find R by adding R site and Rho
     R[0] = R_site[0] + rho_ijk[0]
     R[1] = R_site[1] + rho_ijk[1]
     R[2] = R_site[2] + rho_ijk[2]
 
+    #V by using the transport therem
     b = np.cross(w, R)
 
     V[0] = drho_ijk[0] + b[0]
