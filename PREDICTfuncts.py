@@ -32,6 +32,32 @@ def J2DragPert(inc0, ecc0, n0, ndot2):
 
 def newton(M, e):
 
+    #Initialize
+    E_g = 0
+    if M < math.pi:
+        E_n = M + e
+    elif M > math.pi:
+        E_n = M - e
+    else:
+        E_n = M
+
+    #i = 0
+
+    #Until error is very small
+    while abs(E_n-E_g) > 10.0**(-9.0):
+
+        #Memory Allocation tricks
+        TempVal = E_n
+        E_n = -1
+        E_g = TempVal
+
+        #Newton Raphson Method of finding Eccentric Anomaly
+        E_n = E_g + ((M-(E_g -e*np.sin(E_g)))/(1-e*np.cos(E_g)))
+        #i += 1
+        #print(i)
+
+    E = E_n
+
     return E
 
 
