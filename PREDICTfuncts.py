@@ -63,6 +63,36 @@ def newton(M, e):
 
 def coeupdate(deltat, n0, ndot2, ecc0, eccdot, raan0, raandot, argp0, argpdot, mean0):
 
+    #Find new eccentricity
+    ecc = ecc0 +eccdot*deltat
+
+    #Find new RAAN
+    raan = raan0 + raandot*deltat
+
+    #Find new Argument of Perapsis
+    argp = argp0 +argpdot*deltat
+
+    #Find ndot
+    ndot = ndot2*2.0
+
+    #Find new mean motion
+    n = n0 +ndot*deltat
+
+    #Find new Mean Anomaly
+    M = mean0 + n0*deltat + ndot2*(deltat**2.0)
+    M = CF.revcheck(M, 2*math.pi)
+
+    #Find new Eccentric Anomaly
+    E = newton(M, ecc0)
+
+    #Find new True Anomaly
+    nu = np.arccos((np.cos(E)-ecc0)/(1.0-ecc0*np.cos(E)))
+    if E > math.pi and nu < math.pi:
+        nu = 2*math.pi - nu
+    if E < math.pi and nu > math.pi:
+        nu = 2*math.pi - nu
+    nu = CF.revcheck(nu, 2*math.pi)
+
     return [n, ecc, raan, argp, nu]
 
 
