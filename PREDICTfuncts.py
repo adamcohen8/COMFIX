@@ -7,6 +7,7 @@ Re = 6378.137
 J2 = 1.08263 *10**(-3)
 MU = 398600.5
 
+#Tested
 def J2DragPert(inc0, ecc0, n0, ndot2):
 
     #Find Semimajor Axis
@@ -29,7 +30,7 @@ def J2DragPert(inc0, ecc0, n0, ndot2):
 
     return [raandot, argpdot, eccdot]
 
-
+#Tested
 def newton(M, e):
 
     #Initialize
@@ -60,7 +61,7 @@ def newton(M, e):
 
     return E
 
-
+#Tested, minor error
 def coeupdate(deltat, n0, ndot2, ecc0, eccdot, raan0, raandot, argp0, argpdot, mean0):
 
     #Find new eccentricity
@@ -95,28 +96,96 @@ def coeupdate(deltat, n0, ndot2, ecc0, eccdot, raan0, raandot, argp0, argpdot, m
 
     return [n, ecc, raan, argp, nu]
 
-
+#Not Tested Yet
 def coes2rpqw(n, ecc, nu):
+
+    # Find Semimajor Axis
+    a = (MU / (n ** 2.0)) ** (1.0 / 3.0)
+
+    # Find Semilatus Rectum
+    p0 = a * (1.0 - (ecc ** 2.0))
+
+    #Find Vbar
+    PQ = np.array([1.0, 1.0])
+    PQ[0] = -np.sin(nu)
+    PQ[1] = ecc + np.cos(nu)
+    Vbar = math.sqrt(MU/p0) * PQ
+
+    #Find magnitude of V
+    V = math.sqrt(Vbar[0]**2.0 +Vbar[1]**2.0)
+
+    #Find R
+    R = MU/(((V**2.0)/2.0)+(MU/(2.0*a)))
+
+    #Find R_pqw
+    PQ2 = np.array([1.0, 1.0])
+    PQ2[0] = np.cos(nu)
+    PQ2[1] = np.sin(nu)
+    R_pqw = R * PQ2
 
     return R_pqw
 
-
+#Not Tested Yet
 def pqw2ijk(vec_pqw, argp, inc, raan):
+
+    vec_ijk = CF.axisrot(vec_pqw,3,-argp)
+    vec_ijk = CF.axisrot(vec_ijk, 1,-inc)
+    vec_ijk = CF.axisrot(vec_ijk,3,-raan)
 
     return vec_ijk
 
-
+#Not Tested
 def visible(R_ijk, R_site, sitlat, lst, jd):
 
-    return Vis
+    #Find Rho, az, and el
+    [rho, az, el] = rhoazel(R_ijk, R_site, sitlat, lst)
 
+    #Find Rsun
+    Rsun = CF.Sun(jd)[0]
 
+    #Find Beta, Alpha, and x
+    Beta = CF.vecangle(Rsun, R_ijk)
+    Alpha = CF.vecangle(R_site, Rsun)
+    x = CF.mag(R_ijk)*np.sin(2*math.pi - Beta)
+
+    if Beta > math.pi/2 and x < Re:
+        return False
+
+    if Alpha < 102.0*math.pi/180.0:
+        return False
+
+    if rho > 1500.0:
+        return False
+
+    if el < 10.0*math.pi/180.0:
+        return False
+
+    return True
+
+#Not Tested Yet
 def rhoazel(R_ijk, R_site, sitlat, lst):
+
+    #Find Rho in IJK
+    rho_ijk = R_ijk - R_site
+    #Rotate Rho to SEZ
+    rho_sez = ijk2sez(rho_ijk, lst, sitlat)
+
+    #Find Magnitude of Rho
+    rho = CF.mag(rho_sez)
+
+    #Find Azimuth Angle
+    az = math.atan2(rho_sez[1], -rho_sez[0])
+
+    #Find Elevation Angle
+    el = np.arcsin(rho_sez[2]/rho)
 
     return [rho, az, el]
 
-
+#Not Tested Yet
 def ijk2sez(vec_ijk, lst, sitlat):
+
+    vec_sez = CF.axisrot(vec_ijk, 3, lst)
+    vec_sez = CF.axisrot(vec_sez, 2, (math.pi/2.0 - sitlat))
 
     return vec_sez
 
