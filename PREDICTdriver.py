@@ -9,6 +9,7 @@ sitlat = 39.006
 sitlon = -104.883
 sitalt = 2.184
 Year = 2022
+Yr = 22
 StartDay = 280
 StopDay = 300
 
@@ -56,22 +57,28 @@ for i in range(1):
     #J2DragPert
     [raandot, argpdot, eccdot] = PF.J2DragPert(inc0, ecc0, n0, ndot2)
 
+    #print(raandot, argpdot, eccdot)
+    deltat = ((StartDay-EpochDay)*24*60*60)
 
     #For Each time step
     for t in range(0,20*24*30):
 
-        ObsDay = EpochDay + (t*120.0)/86400.0
+        ObsDay = EpochDay + (StartDay-EpochDay) + (t*120.0)/86400.0
         [Mon, D, H, M, Sec] = CF.dayofyr2mdhms(Year, ObsDay)
         jd = CF.julianday(Year, Mon, D, H, M, Sec)
+        JD = f"{Yr}{int(math.floor(ObsDay))}{H:02d}{M:02d}{Sec:02f}"
 
-        deltat = t*120.0
+        #print(JD)
+        deltat = deltat + 120.0
+        #print(deltat)
 
-        [GST, LST] = CF.gstlst(jd, sitlon)
+        [GST, LST] = CF.gstlst(JD, sitlon)
         Rsite = CF.site(sitlat, sitalt, LST)
 
         #Find New COEs
         newCOEs = PF.coeupdate(deltat, n0, ndot2, ecc0, eccdot, raan0, raandot, argp0, argpdot, mean0)
-
+        #print(deltat)
+        #print(newCOEs)
         n = newCOEs[0]
         ecc = newCOEs[1]
         raan = newCOEs[2]
@@ -93,14 +100,18 @@ for i in range(1):
         #Find Rho az el
         [Rho, az, el] = PF.rhoazel(Rijk, Rsite, sitlat, LST)
 
-        if deltat == (1*60*60 + 32*60):
-            print(Rho, az, el)
+        if 100480 < deltat < 100490:
+            print(Rho, az*180.0/math.pi, el*180.0/math.pi)
             print(Rijk, CF.mag(Rijk))
+            print(ecc)
+            print(raan*180.0/math.pi)
+            print(argp*180.0/math.pi)
+            print(deltat)
             print(Rsite, CF.mag(Rsite))
             print(Rho_ijk, CF.mag(Rho_ijk))
             print(Rho_sez, CF.mag(Rho_sez))
             print(GST, LST)
-            print(jd)
+            #print(jd)
 
         #Determin Visibility
         Vis = PF.visible(Rijk, Rsite, sitlat, LST, jd)

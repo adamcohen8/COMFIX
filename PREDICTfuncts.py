@@ -65,7 +65,9 @@ def newton(M, e):
 def coeupdate(deltat, n0, ndot2, ecc0, eccdot, raan0, raandot, argp0, argpdot, mean0):
 
     #Find new eccentricity
-    ecc = ecc0 +eccdot*deltat
+    ecc = ecc0 + eccdot*deltat
+    if ecc < 0.0:
+        ecc = 0.0
 
     #Find new RAAN
     raan = raan0 + raandot*deltat
@@ -106,22 +108,27 @@ def coes2rpqw(n, ecc, nu):
     p0 = a * (1.0 - (ecc ** 2.0))
 
     #Find Vbar
-    PQ = np.array([1.0, 1.0, 0])
+    PQ = np.array([1.0, 1.0, 0.0])
     PQ[0] = -np.sin(nu)
     PQ[1] = ecc + np.cos(nu)
-    Vbar = math.sqrt(MU/p0) * PQ
+    temp = math.sqrt(float(MU/p0))
+    #print(temp)
 
-    #Find magnitude of V
-    V = math.sqrt(Vbar[0]**2.0 +Vbar[1]**2.0)
+    Vbar = CF.scalarMultiply(temp, PQ)
+
+    #Find magnitude of Vbar
+    V = CF.mag(Vbar)
+    #print(V)
 
     #Find R
     R = MU/(((V**2.0)/2.0)+(MU/(2.0*a)))
+    #print(R)
 
     #Find R_pqw
-    PQ2 = np.array([1.0, 1.0, 0])
+    PQ2 = np.array([1.0, 1.0, 0.0])
     PQ2[0] = np.cos(nu)
     PQ2[1] = np.sin(nu)
-    R_pqw = R * PQ2
+    R_pqw = CF.scalarMultiply(R,PQ2)
 
     return R_pqw
 

@@ -549,6 +549,7 @@ def vecangle(A, B):
 
     return Theta
 
+
 def writeOutput(file_out, sitlat, sitlon, sitalt, a, e, Incl, Raan, Argp, Nu, rho, az, el, drho, daz, Del, rho_sez, rho_ijk, drho_sez, drho_ijk, jd, satID, GST, LST, R, V, Rsite):
 #########################################################
 #
