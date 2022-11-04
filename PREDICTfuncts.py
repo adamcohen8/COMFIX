@@ -106,7 +106,7 @@ def coes2rpqw(n, ecc, nu):
     p0 = a * (1.0 - (ecc ** 2.0))
 
     #Find Vbar
-    PQ = np.array([1.0, 1.0])
+    PQ = np.array([1.0, 1.0, 0])
     PQ[0] = -np.sin(nu)
     PQ[1] = ecc + np.cos(nu)
     Vbar = math.sqrt(MU/p0) * PQ
@@ -118,7 +118,7 @@ def coes2rpqw(n, ecc, nu):
     R = MU/(((V**2.0)/2.0)+(MU/(2.0*a)))
 
     #Find R_pqw
-    PQ2 = np.array([1.0, 1.0])
+    PQ2 = np.array([1.0, 1.0, 0])
     PQ2[0] = np.cos(nu)
     PQ2[1] = np.sin(nu)
     R_pqw = R * PQ2
@@ -128,9 +128,9 @@ def coes2rpqw(n, ecc, nu):
 #Not Tested Yet
 def pqw2ijk(vec_pqw, argp, inc, raan):
 
-    vec_ijk = CF.axisrot(vec_pqw,3,-argp)
-    vec_ijk = CF.axisrot(vec_ijk, 1,-inc)
-    vec_ijk = CF.axisrot(vec_ijk,3,-raan)
+    vec_ijk = CF.axisrot(vec_pqw, 3, -argp)
+    vec_ijk = CF.axisrot(vec_ijk, 1, -inc)
+    vec_ijk = CF.axisrot(vec_ijk, 3, -raan)
 
     return vec_ijk
 
