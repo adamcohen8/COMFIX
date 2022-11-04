@@ -182,9 +182,11 @@ def rhoazel(R_ijk, R_site, sitlat, lst):
 
     #Find Azimuth Angle
     az = math.atan2(rho_sez[1], -rho_sez[0])
+    az = CF.revcheck(az, 2*math.pi)
 
     #Find Elevation Angle
     el = np.arcsin(rho_sez[2]/rho)
+    el = CF.revcheck(el, 2 * math.pi)
 
     return [rho, az, el]
 
