@@ -28,4 +28,6 @@ import COMFIXfuncts as CF
 # print(CF.site(1.356120828799594, 0.049, 3.2302623381265736))
 # print(CF.site(1.356120828799594, 0.049, 3.2302623391265736))
 
-print(CF.finddays(2022, 8,8,19,45,10.0))
+#print(CF.finddays(2022, 8,8,19,45,10.0))
+
+print(CF.axisrot(CF.axisrot([1399.996568, -246.138283, 115.738499], 3, -1.5580061),2,math.pi/2 -1.5580061))

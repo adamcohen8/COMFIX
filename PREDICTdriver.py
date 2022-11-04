@@ -15,9 +15,8 @@ StopDay = 300
 jd = 0
 
 #Convert User input to working units
-sitlat = 39.006 *math.pi/180.0
-sitlon = -104.883 *math.pi/180.0
-sitalt = 2.184 *math.pi/180.0
+sitlat = sitlat *math.pi/180.0
+sitlon = sitlon *math.pi/180.0
 
 StartJD = CF.julianday(Year, 10, 7, 0, 0, 0)
 StopJD = CF.julianday(Year, 10, 27, 0, 0, 0)
@@ -93,7 +92,15 @@ for i in range(1):
 
         #Find Rho az el
         [Rho, az, el] = PF.rhoazel(Rijk, Rsite, sitlat, LST)
-        print(Rho, az, el)
+
+        if deltat == (1*60*60 + 32*60):
+            print(Rho, az, el)
+            print(Rijk, CF.mag(Rijk))
+            print(Rsite, CF.mag(Rsite))
+            print(Rho_ijk, CF.mag(Rho_ijk))
+            print(Rho_sez, CF.mag(Rho_sez))
+            print(GST, LST)
+            print(jd)
 
         #Determin Visibility
         Vis = PF.visible(Rijk, Rsite, sitlat, LST, jd)

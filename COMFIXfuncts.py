@@ -498,7 +498,7 @@ def Sun(JD):
 
     N = JD - 2451545.0
 
-    MeanLong = 280.461 + 0.9856474 * N
+    MeanLong = 280.461 + (0.9856474 * N)
     MeanLong = revcheck(MeanLong, 360.0)
 
     MeanAnomaly = 357.528 + 0.9856003 * N
@@ -528,7 +528,9 @@ def Sun(JD):
 
     RSun4 = 1.00014 -0.01671*np.cos(MeanAnomaly) - 0.00014*np.cos(2.0*MeanAnomaly)
 
-    RSun = np.array([RSun4*np.cos(EclpLong), RSun4*np.cos(Obliquity)*np.sin(EclpLong), RSun4*np.sin(Obliquity)*np.cos(EclpLong)])
+    RSun = np.array([RSun4*np.cos(EclpLong), RSun4*np.cos(Obliquity)*np.sin(EclpLong), RSun4*np.sin(Obliquity)*np.sin(EclpLong)])
+
+    RSun = RSun * 149597870.0
 
     return [RSun, RtAsc, Decl]
 
