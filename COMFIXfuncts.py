@@ -705,7 +705,7 @@ def gstlst(jd, sitlon):
     hr = float(hr)
     min = jd[7] + jd[8]
     min = float(min)
-    sec = jd[9] + jd[10] + jd[11] + jd[12] + jd[13]
+    sec = jd[9] + jd[10] + jd[11] + jd[12] + jd[13] + jd[14] +jd[15]
     sec = float(sec)
 
     #Find value of D

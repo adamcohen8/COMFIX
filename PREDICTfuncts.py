@@ -153,21 +153,22 @@ def visible(R_ijk, R_site, sitlat, lst, jd):
     #Find Beta, Alpha, and x
     Beta = CF.vecangle(Rsun, R_ijk)
     Alpha = CF.vecangle(R_site, Rsun)
-    x = CF.mag(R_ijk)*np.sin(2*math.pi - Beta)
+    x = abs(CF.mag(R_ijk)*np.sin(2*math.pi - Beta))
 
-    if Beta > math.pi/2 and x < Re:
-        return False
+    if Beta > math.pi/2:
+        if x < Re:
+            return [False, Beta, Alpha, x, 1]
 
     if Alpha < 102.0*math.pi/180.0:
-        return False
+        return [False, Beta, Alpha, x, 2]
 
     if rho > 1500.0:
-        return False
+        return [False, Beta, Alpha, x, 3]
 
     if el < 10.0*math.pi/180.0:
-        return False
+        return [False, Beta, Alpha, x, 4]
 
-    return True
+    return [True, Beta, Alpha, x]
 
 #Not Tested Yet
 def rhoazel(R_ijk, R_site, sitlat, lst):
